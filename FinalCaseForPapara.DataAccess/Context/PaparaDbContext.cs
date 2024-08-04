@@ -4,10 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinalCaseForPapara.DataAccess.Context
 {
-    public class PaparaDbContext : IdentityDbContext<User>
+    public class PaparaDbContext : IdentityDbContext
     {
         public PaparaDbContext(DbContextOptions<PaparaDbContext> options) : base(options) { }
 
+        public new DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
