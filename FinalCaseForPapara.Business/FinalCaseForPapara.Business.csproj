@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FinalCaseForPapara.DataAccess\FinalCaseForPapara.DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>

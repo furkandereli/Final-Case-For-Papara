@@ -10,5 +10,7 @@
         public int MaxPoints { get; set; }
         public bool Stock { get; set; }
         public bool IsActive { get; set; }
+
+        public List<ProductCategory> ProductCategories { get; set; }
     }
 }
