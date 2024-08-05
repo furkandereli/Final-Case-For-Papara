@@ -7,7 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FinalCaseForPapara.DataAccess\FinalCaseForPapara.DataAccess.csproj" />
+    <ProjectReference Include="..\FinalCaseForPapara.Dto\FinalCaseForPapara.Dto.csproj" />
   </ItemGroup>
 
 </Project>

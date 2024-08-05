@@ -1,25 +1,31 @@
 using FinalCaseForPapara.Business.Jwt;
+using FinalCaseForPapara.Business.Services.JwtServices;
+using FinalCaseForPapara.Business.Services.ProductServices;
 using FinalCaseForPapara.DataAccess.Context;
 using FinalCaseForPapara.DataAccess.GenericRepository;
 using FinalCaseForPapara.DataAccess.UnitOfWork;
+using FinalCaseForPapara.Entity.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddDbContext<PaparaDbContext>(options => 
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MssqlConnection")));
+builder.Services.AddDbContext<PaparaDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("MssqlConnection")));
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddIdentity<User, IdentityRole>()
+    .AddEntityFrameworkStores<PaparaDbContext>();
+
+builder.Services.AddScoped<IJwtService, JwtService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.Configure<JwtConfig>(builder.Configuration.GetSection("JwtConfig"));
 
@@ -64,12 +70,16 @@ builder.Services.AddSwaggerGen(c =>
             Type = ReferenceType.SecurityScheme
         }
     };
-    c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        { securityScheme, new string[] { } }
-    });
+        c.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
+        c.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            { securityScheme, new string[] { } }
+        });
 });
+
+
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 

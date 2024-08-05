@@ -1,6 +1,6 @@
-﻿namespace FinalCaseForPapara.Entity.Entities
+﻿namespace FinalCaseForPapara.Dto.ProductDTOs
 {
-    public class Product
+    public class ProductDto
     {
         public string Id { get; set; }
         public string Name { get; set; }
@@ -10,7 +10,5 @@
         public int MaxPoints { get; set; }
         public bool Stock { get; set; }
         public bool IsActive { get; set; }
-
-        public List<ProductCategory> ProductCategories { get; set; }
     }
 }

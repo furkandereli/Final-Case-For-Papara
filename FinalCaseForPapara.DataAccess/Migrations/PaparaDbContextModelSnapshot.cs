@@ -24,11 +24,8 @@ namespace FinalCaseForPapara.DataAccess.Migrations
 
             modelBuilder.Entity("FinalCaseForPapara.Entity.Entities.Category", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -49,11 +46,8 @@ namespace FinalCaseForPapara.DataAccess.Migrations
 
             modelBuilder.Entity("FinalCaseForPapara.Entity.Entities.Coupon", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Amount")
                         .HasColumnType("int");
@@ -75,11 +69,8 @@ namespace FinalCaseForPapara.DataAccess.Migrations
 
             modelBuilder.Entity("FinalCaseForPapara.Entity.Entities.Order", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("CouponAmount")
                         .HasColumnType("decimal(18,2)");
@@ -109,20 +100,19 @@ namespace FinalCaseForPapara.DataAccess.Migrations
 
             modelBuilder.Entity("FinalCaseForPapara.Entity.Entities.OrderDetail", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
+                    b.Property<string>("OrderId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -135,11 +125,8 @@ namespace FinalCaseForPapara.DataAccess.Migrations
 
             modelBuilder.Entity("FinalCaseForPapara.Entity.Entities.Product", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -171,11 +158,11 @@ namespace FinalCaseForPapara.DataAccess.Migrations
 
             modelBuilder.Entity("FinalCaseForPapara.Entity.Entities.ProductCategory", b =>
                 {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                    b.Property<string>("ProductId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
+                    b.Property<string>("CategoryId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ProductId", "CategoryId");
 
@@ -209,6 +196,14 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -370,6 +365,13 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "1",
+                            RoleId = "1"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -410,6 +412,28 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasDiscriminator().HasValue("User");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "7dd4e49a-dce8-4d1a-a0a5-7db69e1b5cf1",
+                            Email = "papara@admin.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "PAPARA@ADMIN.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAIAAYagAAAAEM9PGq6pB7YvOdyQXS+E0LLCWSpcVqDfhxYpuA8jND8rqHIr5kwa2S6unq2jafcgZg==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "a4550e4d-fd68-4b1b-b7eb-444e5037c70f",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin",
+                            FirstName = "Admin",
+                            LastName = "User",
+                            PointsBalance = 0m,
+                            WalletBalance = 0m
+                        });
                 });
 
             modelBuilder.Entity("FinalCaseForPapara.Entity.Entities.Order", b =>

@@ -1,4 +1,5 @@
 ﻿using FinalCaseForPapara.Entity.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -60,6 +61,38 @@ namespace FinalCaseForPapara.DataAccess.Context
             modelBuilder.Entity<User>(entity =>
                 entity.Property(u => u.PointsBalance)
                 .HasColumnType("decimal(18,2)"));
+
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = "1",
+                Name = "Admin",
+                NormalizedName = "ADMIN"
+            });
+
+            var adminUser = new User
+            {
+                Id = "1",
+                UserName = "Admin",
+                NormalizedUserName = "ADMIN",
+                Email = "papara@admin.com",
+                NormalizedEmail = "PAPARA@ADMIN.COM",
+                FirstName = "Admin",
+                LastName = "User",
+                EmailConfirmed = true,
+                WalletBalance = 0,
+                PointsBalance = 0
+            };
+
+            var passwordHasher = new PasswordHasher<User>();
+            adminUser.PasswordHash = passwordHasher.HashPassword(adminUser, "PaparaAdmin123");
+
+            modelBuilder.Entity<User>().HasData(adminUser);
+
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                RoleId = "1",
+                UserId = "1"
+            });
         }
     }
 }
