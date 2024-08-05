@@ -1,4 +1,5 @@
 ﻿using FinalCaseForPapara.DataAccess.GenericRepository;
+using FinalCaseForPapara.DataAccess.ProductRepositories;
 using FinalCaseForPapara.Entity.Entities;
 
 namespace FinalCaseForPapara.DataAccess.UnitOfWork
@@ -7,7 +8,7 @@ namespace FinalCaseForPapara.DataAccess.UnitOfWork
     {
         Task CompleteAsync();
 
-        IGenericRepository<Product> ProductRepository { get; }
+        IProductRepository ProductRepository { get; }
         IGenericRepository<Category> CategoryRepository { get; }
         IGenericRepository<ProductCategory> ProductCategoryRepository { get; }
         IGenericRepository<Order> OrderRepository { get; }

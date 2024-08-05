@@ -46,7 +46,7 @@ namespace FinalCaseForPapara.Business.Services.ProductServices
 
         public async Task<List<ProductDto>> GetAllAsync()
         {
-            var products = await _unitOfWork.ProductRepository.GetAllAsync();
+            var products = await _unitOfWork.ProductRepository.GetProductsWithCategoriesAsync();
             return _mapper.Map<List<ProductDto>>(products);
         }
 

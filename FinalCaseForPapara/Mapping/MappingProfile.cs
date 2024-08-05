@@ -8,7 +8,10 @@ namespace FinalCaseForPapara.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<Product, ProductDto>().ReverseMap();
+            CreateMap<Product, ProductDto>()
+                .ForMember(dest => dest.CategoryNames, 
+                opt => opt.MapFrom(src => src.ProductCategories.Select(pc => pc.Category.Name).ToList()));
+
             CreateMap<Product, CreateProductDto>().ReverseMap();
             CreateMap<Product, UpdateProductDto>().ReverseMap();
         }

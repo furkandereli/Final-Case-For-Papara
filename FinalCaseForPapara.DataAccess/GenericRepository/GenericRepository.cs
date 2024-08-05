@@ -5,7 +5,7 @@ namespace FinalCaseForPapara.DataAccess.GenericRepository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly PaparaDbContext _context;
+        protected readonly PaparaDbContext _context;
         private readonly DbSet<T> _dbSet;
 
         public GenericRepository(PaparaDbContext context)

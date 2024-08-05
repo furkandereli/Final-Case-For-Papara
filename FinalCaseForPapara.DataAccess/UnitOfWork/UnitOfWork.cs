@@ -1,5 +1,6 @@
 ﻿using FinalCaseForPapara.DataAccess.Context;
 using FinalCaseForPapara.DataAccess.GenericRepository;
+using FinalCaseForPapara.DataAccess.ProductRepositories;
 using FinalCaseForPapara.Entity.Entities;
 
 namespace FinalCaseForPapara.DataAccess.UnitOfWork
@@ -8,7 +9,7 @@ namespace FinalCaseForPapara.DataAccess.UnitOfWork
     {
         private readonly PaparaDbContext _context;
 
-        public IGenericRepository<Product> ProductRepository { get; }
+        public IProductRepository ProductRepository { get; }
         public IGenericRepository<Category> CategoryRepository { get; }
         public IGenericRepository<ProductCategory> ProductCategoryRepository { get; }
         public IGenericRepository<Order> OrderRepository { get; }
@@ -20,7 +21,7 @@ namespace FinalCaseForPapara.DataAccess.UnitOfWork
         {
             _context = context;
 
-            ProductRepository = new GenericRepository<Product>(_context);
+            ProductRepository = new ProductRepository(_context);
             CategoryRepository = new GenericRepository<Category>(_context);
             ProductCategoryRepository = new GenericRepository<ProductCategory>(_context);
             OrderRepository = new GenericRepository<Order>(_context);

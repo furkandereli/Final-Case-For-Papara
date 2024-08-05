@@ -3,6 +3,7 @@ using FinalCaseForPapara.Business.Services.JwtServices;
 using FinalCaseForPapara.Business.Services.ProductServices;
 using FinalCaseForPapara.DataAccess.Context;
 using FinalCaseForPapara.DataAccess.GenericRepository;
+using FinalCaseForPapara.DataAccess.ProductRepositories;
 using FinalCaseForPapara.DataAccess.UnitOfWork;
 using FinalCaseForPapara.Entity.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -18,6 +19,7 @@ builder.Services.AddDbContext<PaparaDbContext>(options =>
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<PaparaDbContext>();
