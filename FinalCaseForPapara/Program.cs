@@ -1,9 +1,11 @@
 using FinalCaseForPapara.Business.Jwt;
 using FinalCaseForPapara.Business.Services.JwtServices;
 using FinalCaseForPapara.Business.Services.ProductServices;
+using FinalCaseForPapara.Business.Services.UserServices;
 using FinalCaseForPapara.DataAccess.Context;
-using FinalCaseForPapara.DataAccess.GenericRepository;
-using FinalCaseForPapara.DataAccess.ProductRepositories;
+using FinalCaseForPapara.DataAccess.Repositories.GenericRepositories;
+using FinalCaseForPapara.DataAccess.Repositories.ProductRepositories;
+using FinalCaseForPapara.DataAccess.Repositories.UserRepositories;
 using FinalCaseForPapara.DataAccess.UnitOfWork;
 using FinalCaseForPapara.Entity.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -20,12 +22,14 @@ builder.Services.AddDbContext<PaparaDbContext>(options =>
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddIdentity<User, IdentityRole>()
     .AddEntityFrameworkStores<PaparaDbContext>();
 
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -53,6 +57,11 @@ builder.Services.AddAuthentication(options =>
         ValidAudience = jwtConfig.Audience,
         IssuerSigningKey = new SymmetricSecurityKey(key)
     };
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
 });
 
 builder.Services.AddSwaggerGen(c =>

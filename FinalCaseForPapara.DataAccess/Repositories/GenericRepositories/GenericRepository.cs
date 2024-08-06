@@ -1,7 +1,7 @@
 ﻿using FinalCaseForPapara.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace FinalCaseForPapara.DataAccess.GenericRepository
+namespace FinalCaseForPapara.DataAccess.Repositories.GenericRepositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {

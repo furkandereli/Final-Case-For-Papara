@@ -60,6 +60,34 @@ namespace FinalCaseForPapara.Business.Services.ProductServices
             return _mapper.Map<ProductDto>(product);
         }
 
+        public async Task ToggleActiveStatusAsync(string id)
+        {
+            var product = await _unitOfWork.ProductRepository.GetByIdAsync(id);
+
+            if(product != null)
+            {
+                product.IsActive = !product.IsActive;
+                await _unitOfWork.ProductRepository.UpdateAsync(product);
+                await _unitOfWork.CompleteAsync();
+            }
+
+            throw new KeyNotFoundException("Product not found !");
+        }
+
+        public async Task ToggleStockStatusAsync(string id)
+        {
+            var product = await _unitOfWork.ProductRepository.GetByIdAsync(id);
+
+            if (product != null)
+            {
+                product.Stock = !product.Stock;
+                await _unitOfWork.ProductRepository.UpdateAsync(product);
+                await _unitOfWork.CompleteAsync();
+            }
+
+            throw new KeyNotFoundException("Product not found !");
+        }
+
         public async Task UpdateProductAsync(UpdateProductDto updateProductDto)
         {
             var product = await _unitOfWork.ProductRepository.GetByIdAsync(updateProductDto.Id);

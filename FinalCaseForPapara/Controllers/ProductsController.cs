@@ -1,11 +1,13 @@
 ﻿using FinalCaseForPapara.Business.Services.ProductServices;
 using FinalCaseForPapara.Dto.ProductDTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalCaseForPapara.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class ProductsController : ControllerBase
     {
         private readonly IProductService _productService;
@@ -48,6 +50,20 @@ namespace FinalCaseForPapara.Controllers
         {
             await _productService.UpdateProductAsync(updateProductDto);
             return Ok("Product updated successfully !");
+        }
+
+        [HttpPut("ToggleStock/{id}")]
+        public async Task<IActionResult> ToggleStockStatus(string id)
+        {
+            await _productService.ToggleStockStatusAsync(id);
+            return Ok("Product stock status toggled successfully !");
+        }
+
+        [HttpPut("ToggleActive/{id}")]
+        public async Task<IActionResult> ToggleActiveStatus(string id)
+        {
+            await _productService.ToggleActiveStatusAsync(id);
+            return Ok("Product active status toggled successfully !");
         }
     }
 }

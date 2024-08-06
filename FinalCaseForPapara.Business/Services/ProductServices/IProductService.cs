@@ -9,5 +9,7 @@ namespace FinalCaseForPapara.Business.Services.ProductServices
         Task CreateProductAsync(CreateProductDto createProductDto);
         Task DeleteProductAsync(string id);
         Task UpdateProductAsync(UpdateProductDto updateProductDto);
+        Task ToggleStockStatusAsync(string id);
+        Task ToggleActiveStatusAsync(string id);
     }
 }

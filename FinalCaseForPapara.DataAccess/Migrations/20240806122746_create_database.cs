@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace FinalCaseForPapara.DataAccess.Migrations
 {
     /// <inheritdoc />
@@ -283,12 +285,16 @@ namespace FinalCaseForPapara.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "1", null, "Admin", "ADMIN" });
+                values: new object[,]
+                {
+                    { "1", null, "Admin", "ADMIN" },
+                    { "2", null, "User", "USER" }
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PointsBalance", "SecurityStamp", "TwoFactorEnabled", "UserName", "WalletBalance" },
-                values: new object[] { "1", 0, "7dd4e49a-dce8-4d1a-a0a5-7db69e1b5cf1", "User", "papara@admin.com", true, "Admin", "User", false, null, "PAPARA@ADMIN.COM", "ADMIN", "AQAAAAIAAYagAAAAEM9PGq6pB7YvOdyQXS+E0LLCWSpcVqDfhxYpuA8jND8rqHIr5kwa2S6unq2jafcgZg==", null, false, 0m, "a4550e4d-fd68-4b1b-b7eb-444e5037c70f", false, "Admin", 0m });
+                values: new object[] { "1", 0, "c4d6c282-372e-4ef7-b714-b909ba03e21e", "User", "papara@admin.com", true, "Admin", "User", false, null, "PAPARA@ADMIN.COM", "ADMIN", "AQAAAAIAAYagAAAAEET0M7HibBcM4DkJbyCJWkeB9+mUs6tV5au16dwp9zAJdticV/sArto2A/Xq8gxOOg==", null, false, 0m, "dff5bdd1-7538-4c50-b480-0ca9019a5171", false, "Admin", 0m });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

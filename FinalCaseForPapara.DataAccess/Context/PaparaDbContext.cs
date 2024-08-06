@@ -69,6 +69,13 @@ namespace FinalCaseForPapara.DataAccess.Context
                 NormalizedName = "ADMIN"
             });
 
+            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            {
+                Id = "2",
+                Name = "User",
+                NormalizedName = "USER"
+            });
+
             var adminUser = new User
             {
                 Id = "1",

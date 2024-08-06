@@ -1,6 +1,8 @@
-﻿using FinalCaseForPapara.DataAccess.GenericRepository;
-using FinalCaseForPapara.DataAccess.ProductRepositories;
+﻿using FinalCaseForPapara.DataAccess.Repositories.GenericRepositories;
+using FinalCaseForPapara.DataAccess.Repositories.ProductRepositories;
+using FinalCaseForPapara.DataAccess.Repositories.UserRepositories;
 using FinalCaseForPapara.Entity.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace FinalCaseForPapara.DataAccess.UnitOfWork
 {
@@ -14,6 +16,10 @@ namespace FinalCaseForPapara.DataAccess.UnitOfWork
         IGenericRepository<Order> OrderRepository { get; }
         IGenericRepository<OrderDetail> OrderDetailRepository { get; }
         IGenericRepository<Coupon> CouponRepository { get; }
-        IGenericRepository<User> UserRepository { get; }
+        IUserRepository UserRepository { get; }
+
+        UserManager<User> UserManager { get; }
+        RoleManager<IdentityRole> RoleManager { get; }
+        SignInManager<User> SignInManager { get; }
     }
 }

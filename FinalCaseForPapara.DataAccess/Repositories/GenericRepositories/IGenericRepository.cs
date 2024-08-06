@@ -1,4 +1,4 @@
-﻿namespace FinalCaseForPapara.DataAccess.GenericRepository
+﻿namespace FinalCaseForPapara.DataAccess.Repositories.GenericRepositories
 {
     public interface IGenericRepository<T> where T : class
     {

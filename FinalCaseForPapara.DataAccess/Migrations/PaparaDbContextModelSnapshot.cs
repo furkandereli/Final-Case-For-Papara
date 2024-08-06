@@ -203,6 +203,12 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                             Id = "1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            Name = "User",
+                            NormalizedName = "USER"
                         });
                 });
 
@@ -418,15 +424,15 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7dd4e49a-dce8-4d1a-a0a5-7db69e1b5cf1",
+                            ConcurrencyStamp = "c4d6c282-372e-4ef7-b714-b909ba03e21e",
                             Email = "papara@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PAPARA@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEM9PGq6pB7YvOdyQXS+E0LLCWSpcVqDfhxYpuA8jND8rqHIr5kwa2S6unq2jafcgZg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEET0M7HibBcM4DkJbyCJWkeB9+mUs6tV5au16dwp9zAJdticV/sArto2A/Xq8gxOOg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a4550e4d-fd68-4b1b-b7eb-444e5037c70f",
+                            SecurityStamp = "dff5bdd1-7538-4c50-b480-0ca9019a5171",
                             TwoFactorEnabled = false,
                             UserName = "Admin",
                             FirstName = "Admin",
