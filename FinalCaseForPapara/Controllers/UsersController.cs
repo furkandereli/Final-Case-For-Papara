@@ -1,5 +1,5 @@
 ﻿using FinalCaseForPapara.Business.Services.UserServices;
-using FinalCaseForPapara.Dto.AuthDTOs;
+using FinalCaseForPapara.Dto.UserDTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +16,38 @@ namespace FinalCaseForPapara.Controllers
             _userService = userService;
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users = await _userService.GetAllUserAsync();
+            return Ok(users);
+        }
+
+        [HttpGet("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetUserById(string id)
+        {
+            var user = await _userService.GetUserByIdAsync(id);
+            return Ok(user);
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            await _userService.DeleteUserAsync(id);
+            return Ok("User deleted successfully !");
+        }
+
+        [HttpPut]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto)
+        {
+            await _userService.UpdateUserAsync(updateUserDto);
+            return Ok("User updated succesfully !");
+        }
+
         [HttpPost("Register")]
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
@@ -29,7 +61,15 @@ namespace FinalCaseForPapara.Controllers
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
             var token = await _userService.LoginAsync(loginDto);
-            return Unauthorized(new { Token = token });
+            return Ok(new { Token = token });
+        }
+
+        [HttpPost("CreateAdminUser")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> CreateAdminUser([FromBody] RegisterDto registerDto)
+        {
+            var message = await _userService.AddAdminUserAsync(registerDto);
+            return Ok(new { Message = message });
         }
     }
 }

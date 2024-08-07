@@ -1,4 +1,5 @@
 using FinalCaseForPapara.Business.Jwt;
+using FinalCaseForPapara.Business.Services.CategoryServices;
 using FinalCaseForPapara.Business.Services.JwtServices;
 using FinalCaseForPapara.Business.Services.ProductServices;
 using FinalCaseForPapara.Business.Services.UserServices;
@@ -30,6 +31,7 @@ builder.Services.AddIdentity<User, IdentityRole>()
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
@@ -88,6 +90,7 @@ builder.Services.AddSwaggerGen(c =>
         });
 });
 
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

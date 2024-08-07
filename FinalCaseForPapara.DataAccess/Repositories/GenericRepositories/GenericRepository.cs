@@ -1,5 +1,6 @@
 ﻿using FinalCaseForPapara.DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace FinalCaseForPapara.DataAccess.Repositories.GenericRepositories
 {
@@ -14,7 +15,12 @@ namespace FinalCaseForPapara.DataAccess.Repositories.GenericRepositories
             _dbSet = context.Set<T>();
         }
 
-        public async Task AddAsync(T entity)
+        public async Task<bool> AnyAsync(Expression<Func<T, bool>> predicate)
+        {
+            return await _dbSet.AnyAsync(predicate);
+        }
+
+        public async Task CreateAsync(T entity)
         {
             await _dbSet.AddAsync(entity);
         }
@@ -27,6 +33,21 @@ namespace FinalCaseForPapara.DataAccess.Repositories.GenericRepositories
         public async Task<List<T>> GetAllAsync()
         {
             return await _dbSet.ToListAsync();
+        }
+
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> predicate = null, params Expression<Func<T, object>>[] includes)
+        {
+            IQueryable<T> query = _dbSet;
+
+            if (predicate != null)
+                query = query.Where(predicate);
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return await query.ToListAsync();
         }
 
         public async Task<T> GetByIdAsync(int id)

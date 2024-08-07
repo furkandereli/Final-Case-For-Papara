@@ -29,7 +29,7 @@ namespace FinalCaseForPapara.Business.Services.ProductServices
                 }
             }
 
-            await _unitOfWork.ProductRepository.AddAsync(product);
+            await _unitOfWork.ProductRepository.CreateAsync(product);
             await _unitOfWork.CompleteAsync();
         }
 

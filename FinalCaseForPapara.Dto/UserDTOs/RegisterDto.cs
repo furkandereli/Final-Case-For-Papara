@@ -1,4 +1,4 @@
-﻿namespace FinalCaseForPapara.Dto.AuthDTOs
+﻿namespace FinalCaseForPapara.Dto.UserDTOs
 {
     public class RegisterDto
     {

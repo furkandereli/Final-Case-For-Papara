@@ -14,6 +14,16 @@ namespace FinalCaseForPapara.DataAccess.Repositories.UserRepositories
             _userManager = userManager;
         }
 
+        public async Task<IdentityResult> AddAdminUserAsync(User user, string password)
+        {
+            var result = await _userManager.CreateAsync(user, password);
+
+            if (result.Succeeded)
+                return await _userManager.AddToRoleAsync(user, "Admin");
+
+            return result;
+        }
+
         public async Task<IdentityResult> AddToRoleAsync(User user, string role)
         {
             return await _userManager.AddToRoleAsync(user, role);
@@ -32,6 +42,11 @@ namespace FinalCaseForPapara.DataAccess.Repositories.UserRepositories
         public async Task<User> FindByEmailAsync(string email)
         {
             return await _userManager.FindByEmailAsync(email);
+        }
+
+        public async Task<User> GetUserById(string id)
+        {
+            return await _userManager.FindByIdAsync(id);
         }
     }
 }
