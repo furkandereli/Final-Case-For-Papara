@@ -5,11 +5,11 @@ namespace FinalCaseForPapara.Business.Services.ProductServices
     public interface IProductService
     {
         Task<List<ProductDto>> GetAllAsync();
-        Task<ProductDto> GetProductByIdAsync(string id);
+        Task<ProductDto> GetProductByIdAsync(int id);
         Task CreateProductAsync(CreateProductDto createProductDto);
-        Task DeleteProductAsync(string id);
+        Task DeleteProductAsync(int id);
         Task UpdateProductAsync(UpdateProductDto updateProductDto);
-        Task ToggleStockStatusAsync(string id);
-        Task ToggleActiveStatusAsync(string id);
+        Task ToggleStockStatusAsync(int id);
+        Task ToggleActiveStatusAsync(int id);
     }
 }

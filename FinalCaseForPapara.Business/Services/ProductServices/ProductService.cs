@@ -33,7 +33,7 @@ namespace FinalCaseForPapara.Business.Services.ProductServices
             await _unitOfWork.CompleteAsync();
         }
 
-        public async Task DeleteProductAsync(string id)
+        public async Task DeleteProductAsync(int id)
         {
             var product = await _unitOfWork.ProductRepository.GetByIdAsync(id);
             
@@ -50,7 +50,7 @@ namespace FinalCaseForPapara.Business.Services.ProductServices
             return _mapper.Map<List<ProductDto>>(products);
         }
 
-        public async Task<ProductDto> GetProductByIdAsync(string id)
+        public async Task<ProductDto> GetProductByIdAsync(int id)
         {
             var product = await _unitOfWork.ProductRepository.GetByIdAsync(id);
 
@@ -60,7 +60,7 @@ namespace FinalCaseForPapara.Business.Services.ProductServices
             return _mapper.Map<ProductDto>(product);
         }
 
-        public async Task ToggleActiveStatusAsync(string id)
+        public async Task ToggleActiveStatusAsync(int id)
         {
             var product = await _unitOfWork.ProductRepository.GetByIdAsync(id);
 
@@ -74,7 +74,7 @@ namespace FinalCaseForPapara.Business.Services.ProductServices
             throw new KeyNotFoundException("Product not found !");
         }
 
-        public async Task ToggleStockStatusAsync(string id)
+        public async Task ToggleStockStatusAsync(int id)
         {
             var product = await _unitOfWork.ProductRepository.GetByIdAsync(id);
 

@@ -61,7 +61,8 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                 name: "Categories",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Tags = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -75,7 +76,8 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                 name: "Coupons",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Amount = table.Column<int>(type: "int", nullable: false),
                     ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -90,7 +92,8 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                 name: "Products",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -214,7 +217,8 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                 name: "Orders",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CouponAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -236,8 +240,8 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                 name: "ProductCategories",
                 columns: table => new
                 {
-                    ProductId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    CategoryId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -260,9 +264,10 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                 name: "OrderDetails",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    OrderId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    ProductId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
@@ -294,7 +299,7 @@ namespace FinalCaseForPapara.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PointsBalance", "SecurityStamp", "TwoFactorEnabled", "UserName", "WalletBalance" },
-                values: new object[] { "1", 0, "c4d6c282-372e-4ef7-b714-b909ba03e21e", "User", "papara@admin.com", true, "Admin", "User", false, null, "PAPARA@ADMIN.COM", "ADMIN", "AQAAAAIAAYagAAAAEET0M7HibBcM4DkJbyCJWkeB9+mUs6tV5au16dwp9zAJdticV/sArto2A/Xq8gxOOg==", null, false, 0m, "dff5bdd1-7538-4c50-b480-0ca9019a5171", false, "Admin", 0m });
+                values: new object[] { "1", 0, "441f3416-304c-4a69-ad9b-6e439a0ba3e9", "User", "papara@admin.com", true, "Admin", "User", false, null, "PAPARA@ADMIN.COM", "ADMIN", "AQAAAAIAAYagAAAAEEBnbkMggXAlR90YCEBgZnbereNywJj3nq9K8F8hFVi6jiV4QExG58YtHZ1lyTg4Zw==", null, false, 0m, "5a56db26-46c4-45df-b2d6-96101f1e5825", false, "Admin", 0m });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

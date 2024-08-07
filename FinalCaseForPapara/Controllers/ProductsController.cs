@@ -25,7 +25,7 @@ namespace FinalCaseForPapara.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetProductById(string id)
+        public async Task<IActionResult> GetProductById(int id)
         {
             var product = await _productService.GetProductByIdAsync(id);
             return Ok(product);
@@ -39,7 +39,7 @@ namespace FinalCaseForPapara.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteProduct(string id)
+        public async Task<IActionResult> DeleteProduct(int id)
         {
             await _productService.DeleteProductAsync(id);
             return Ok("Product deleted successfully !");
@@ -53,14 +53,14 @@ namespace FinalCaseForPapara.Controllers
         }
 
         [HttpPut("ToggleStock/{id}")]
-        public async Task<IActionResult> ToggleStockStatus(string id)
+        public async Task<IActionResult> ToggleStockStatus(int id)
         {
             await _productService.ToggleStockStatusAsync(id);
             return Ok("Product stock status toggled successfully !");
         }
 
         [HttpPut("ToggleActive/{id}")]
-        public async Task<IActionResult> ToggleActiveStatus(string id)
+        public async Task<IActionResult> ToggleActiveStatus(int id)
         {
             await _productService.ToggleActiveStatusAsync(id);
             return Ok("Product active status toggled successfully !");

@@ -9,6 +9,6 @@
         public int MaxPoints { get; set; }
         public bool Stock { get; set; }
         public bool IsActive { get; set; }
-        public List<string> CategoryIds { get; set; }
+        public List<int> CategoryIds { get; set; }
     }
 }

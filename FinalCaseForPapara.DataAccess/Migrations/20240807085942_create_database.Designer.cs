@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FinalCaseForPapara.DataAccess.Migrations
 {
     [DbContext(typeof(PaparaDbContext))]
-    [Migration("20240806122746_create_database")]
+    [Migration("20240807085942_create_database")]
     partial class create_database
     {
         /// <inheritdoc />
@@ -27,8 +27,11 @@ namespace FinalCaseForPapara.DataAccess.Migrations
 
             modelBuilder.Entity("FinalCaseForPapara.Entity.Entities.Category", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -49,8 +52,11 @@ namespace FinalCaseForPapara.DataAccess.Migrations
 
             modelBuilder.Entity("FinalCaseForPapara.Entity.Entities.Coupon", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Amount")
                         .HasColumnType("int");
@@ -72,8 +78,11 @@ namespace FinalCaseForPapara.DataAccess.Migrations
 
             modelBuilder.Entity("FinalCaseForPapara.Entity.Entities.Order", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("CouponAmount")
                         .HasColumnType("decimal(18,2)");
@@ -103,19 +112,20 @@ namespace FinalCaseForPapara.DataAccess.Migrations
 
             modelBuilder.Entity("FinalCaseForPapara.Entity.Entities.OrderDetail", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<string>("OrderId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("ProductId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -128,8 +138,11 @@ namespace FinalCaseForPapara.DataAccess.Migrations
 
             modelBuilder.Entity("FinalCaseForPapara.Entity.Entities.Product", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -161,11 +174,11 @@ namespace FinalCaseForPapara.DataAccess.Migrations
 
             modelBuilder.Entity("FinalCaseForPapara.Entity.Entities.ProductCategory", b =>
                 {
-                    b.Property<string>("ProductId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("CategoryId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
 
                     b.HasKey("ProductId", "CategoryId");
 
@@ -427,15 +440,15 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c4d6c282-372e-4ef7-b714-b909ba03e21e",
+                            ConcurrencyStamp = "441f3416-304c-4a69-ad9b-6e439a0ba3e9",
                             Email = "papara@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PAPARA@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEET0M7HibBcM4DkJbyCJWkeB9+mUs6tV5au16dwp9zAJdticV/sArto2A/Xq8gxOOg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEBnbkMggXAlR90YCEBgZnbereNywJj3nq9K8F8hFVi6jiV4QExG58YtHZ1lyTg4Zw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "dff5bdd1-7538-4c50-b480-0ca9019a5171",
+                            SecurityStamp = "5a56db26-46c4-45df-b2d6-96101f1e5825",
                             TwoFactorEnabled = false,
                             UserName = "Admin",
                             FirstName = "Admin",
