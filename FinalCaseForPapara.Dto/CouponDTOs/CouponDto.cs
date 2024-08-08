@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FinalCaseForPapara.Entity.Entities
+namespace FinalCaseForPapara.Dto.CouponDTOs
 {
-    public class Coupon
+    public class CouponDto
     {
         public int Id { get; set; }
 

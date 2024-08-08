@@ -55,12 +55,13 @@ namespace FinalCaseForPapara.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Amount")
-                        .HasColumnType("int");
-
                     b.Property<string>("Code")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<int>("DiscountAmount")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("ExpiryDate")
                         .HasColumnType("datetime2");
@@ -68,7 +69,13 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("UsedByUserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
 
                     b.ToTable("Coupons");
                 });
@@ -437,15 +444,15 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                         {
                             Id = "1",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "441f3416-304c-4a69-ad9b-6e439a0ba3e9",
+                            ConcurrencyStamp = "c90ef50e-4c4a-4d7e-a15f-f1664f332869",
                             Email = "papara@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "PAPARA@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEBnbkMggXAlR90YCEBgZnbereNywJj3nq9K8F8hFVi6jiV4QExG58YtHZ1lyTg4Zw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEBGp+PBgfhq8/hAZBeDSukMhcmYGrKJP81lG33gMFq/UycPybR/Tp2cdYVpx5Yfmyg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5a56db26-46c4-45df-b2d6-96101f1e5825",
+                            SecurityStamp = "ce3233f9-e90d-4a2d-ba61-9e7152a341c8",
                             TwoFactorEnabled = false,
                             UserName = "Admin",
                             FirstName = "Admin",

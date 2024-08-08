@@ -4,6 +4,7 @@ using FinalCaseForPapara.Dto.ProductDTOs;
 using FinalCaseForPapara.Entity.Entities;
 using Microsoft.AspNetCore.Identity;
 using FinalCaseForPapara.Dto.CategoryDTOs;
+using FinalCaseForPapara.Dto.CouponDTOs;
 
 namespace FinalCaseForPapara.Mapping
 {
@@ -29,6 +30,10 @@ namespace FinalCaseForPapara.Mapping
             CreateMap<Category, CategoryDto>().ReverseMap();
             CreateMap<Category, CreateCategoryDto>().ReverseMap();
             CreateMap<Category, UpdateCategoryDto>().ReverseMap();
+
+            CreateMap<Coupon, CouponDto>().ReverseMap();
+            CreateMap<Coupon, CreateCouponDto>().ReverseMap();
+            CreateMap<Coupon, UpdateCouponDto>().ReverseMap();
         }
     }
 

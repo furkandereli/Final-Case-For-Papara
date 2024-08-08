@@ -1,5 +1,6 @@
 using FinalCaseForPapara.Business.Jwt;
 using FinalCaseForPapara.Business.Services.CategoryServices;
+using FinalCaseForPapara.Business.Services.CouponServices;
 using FinalCaseForPapara.Business.Services.JwtServices;
 using FinalCaseForPapara.Business.Services.ProductServices;
 using FinalCaseForPapara.Business.Services.UserServices;
@@ -32,6 +33,7 @@ builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICouponService, CouponService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

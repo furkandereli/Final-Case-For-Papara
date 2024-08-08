@@ -78,7 +78,7 @@ namespace FinalCaseForPapara.Business.Services.CategoryServices
                 throw new KeyNotFoundException("Category not found !");
 
             _mapper.Map(updateCategoryDto, category);
-            _unitOfWork.CategoryRepository.UpdateAsync(category);
+            await _unitOfWork.CategoryRepository.UpdateAsync(category);
             await _unitOfWork.CompleteAsync();
         }
     }

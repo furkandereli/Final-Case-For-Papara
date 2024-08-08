@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FinalCaseForPapara.Entity.Entities
+namespace FinalCaseForPapara.Dto.CouponDTOs
 {
-    public class Coupon
+    public class UpdateCouponDto
     {
         public int Id { get; set; }
 
@@ -11,6 +11,5 @@ namespace FinalCaseForPapara.Entity.Entities
         public int DiscountAmount { get; set; }
         public DateTime ExpiryDate { get; set; }
         public bool IsActive { get; set; }
-        public int? UsedByUserId { get; set; }
     }
 }

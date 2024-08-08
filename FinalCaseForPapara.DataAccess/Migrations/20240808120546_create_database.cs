@@ -78,10 +78,11 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Code = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Amount = table.Column<int>(type: "int", nullable: false),
+                    Code = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
+                    DiscountAmount = table.Column<int>(type: "int", nullable: false),
                     ExpiryDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    UsedByUserId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -299,7 +300,7 @@ namespace FinalCaseForPapara.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PointsBalance", "SecurityStamp", "TwoFactorEnabled", "UserName", "WalletBalance" },
-                values: new object[] { "1", 0, "441f3416-304c-4a69-ad9b-6e439a0ba3e9", "User", "papara@admin.com", true, "Admin", "User", false, null, "PAPARA@ADMIN.COM", "ADMIN", "AQAAAAIAAYagAAAAEEBnbkMggXAlR90YCEBgZnbereNywJj3nq9K8F8hFVi6jiV4QExG58YtHZ1lyTg4Zw==", null, false, 0m, "5a56db26-46c4-45df-b2d6-96101f1e5825", false, "Admin", 0m });
+                values: new object[] { "1", 0, "c90ef50e-4c4a-4d7e-a15f-f1664f332869", "User", "papara@admin.com", true, "Admin", "User", false, null, "PAPARA@ADMIN.COM", "ADMIN", "AQAAAAIAAYagAAAAEBGp+PBgfhq8/hAZBeDSukMhcmYGrKJP81lG33gMFq/UycPybR/Tp2cdYVpx5Yfmyg==", null, false, 0m, "ce3233f9-e90d-4a2d-ba61-9e7152a341c8", false, "Admin", 0m });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -344,6 +345,12 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Coupons_Code",
+                table: "Coupons",
+                column: "Code",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderDetails_OrderId",

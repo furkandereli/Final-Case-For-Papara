@@ -96,7 +96,7 @@ namespace FinalCaseForPapara.Business.Services.ProductServices
                 throw new KeyNotFoundException("Product not found !");
 
             _mapper.Map(updateProductDto, product);
-            _unitOfWork.ProductRepository.UpdateAsync(product);
+            await _unitOfWork.ProductRepository.UpdateAsync(product);
             await _unitOfWork.CompleteAsync();
         }
     }
