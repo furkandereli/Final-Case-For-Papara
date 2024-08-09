@@ -5,24 +5,44 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FinalCaseForPapara.DataAccess.Context
 {
-    public class PaparaDbContext : IdentityDbContext
+    public class PaparaDbContext : IdentityDbContext<User, Role, int>
     {
         public PaparaDbContext(DbContextOptions<PaparaDbContext> options) : base(options) { }
 
-        public new DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Coupon> Coupons { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<User>(entity =>
+            {
+                entity.Property(u => u.Id);
+            });
+
+            modelBuilder.Entity<Role>(entity =>
+            {
+                entity.Property(r => r.Id);
+            });
+
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.User)
+                .WithMany()
+                .HasForeignKey(o => o.UserId);
+
             modelBuilder.Entity<Coupon>()
                 .HasIndex(c => c.Code)
+                .IsUnique();
+
+            modelBuilder.Entity<Order>()
+                .HasIndex(o => o.OrderNumber)
                 .IsUnique();
 
             modelBuilder.Entity<ProductCategory>()
@@ -51,7 +71,15 @@ namespace FinalCaseForPapara.DataAccess.Context
                 .HasColumnType("decimal(18,2)"));
 
             modelBuilder.Entity<OrderDetail>(entity =>
-                entity.Property(od => od.Price)
+                entity.Property(od => od.TotalPrice)
+                .HasColumnType("decimal(18,2)"));
+
+            modelBuilder.Entity<OrderDetail>(entity =>
+                entity.Property(od => od.UnitPrice)
+                .HasColumnType("decimal(18,2)"));
+
+            modelBuilder.Entity<OrderDetail>(entity =>
+                entity.Property(od => od.PointsEarned)
                 .HasColumnType("decimal(18,2)"));
 
             modelBuilder.Entity<Product>(entity =>
@@ -59,30 +87,26 @@ namespace FinalCaseForPapara.DataAccess.Context
                 .HasColumnType("decimal(18,2)"));
 
             modelBuilder.Entity<User>(entity =>
-                entity.Property(u => u.WalletBalance)
-                .HasColumnType("decimal(18,2)"));
-
-            modelBuilder.Entity<User>(entity =>
                 entity.Property(u => u.PointsBalance)
                 .HasColumnType("decimal(18,2)"));
 
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            modelBuilder.Entity<Role>().HasData(new Role
             {
-                Id = "1",
+                Id = 1,
                 Name = "Admin",
                 NormalizedName = "ADMIN"
             });
 
-            modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+            modelBuilder.Entity<Role>().HasData(new Role
             {
-                Id = "2",
+                Id = 2,
                 Name = "User",
                 NormalizedName = "USER"
             });
 
             var adminUser = new User
             {
-                Id = "1",
+                Id = 1,
                 UserName = "Admin",
                 NormalizedUserName = "ADMIN",
                 Email = "papara@admin.com",
@@ -90,7 +114,6 @@ namespace FinalCaseForPapara.DataAccess.Context
                 FirstName = "Admin",
                 LastName = "User",
                 EmailConfirmed = true,
-                WalletBalance = 0,
                 PointsBalance = 0
             };
 
@@ -99,10 +122,10 @@ namespace FinalCaseForPapara.DataAccess.Context
 
             modelBuilder.Entity<User>().HasData(adminUser);
 
-            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            modelBuilder.Entity<IdentityUserRole<int>>().HasData(new IdentityUserRole<int>
             {
-                RoleId = "1",
-                UserId = "1"
+                RoleId = 1,
+                UserId = 1
             });
         }
     }

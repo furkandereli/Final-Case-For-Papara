@@ -6,7 +6,6 @@ namespace FinalCaseForPapara.DataAccess.Repositories.UserRepositories
 {
     public interface IUserRepository : IGenericRepository<User>
     {
-        Task<User> GetUserById(string id);
         Task<User> FindByEmailAsync(string email);
         Task<bool> CheckPasswordAsync(User user, string password);
         Task<IdentityResult> CreateAsync(User user, string password);

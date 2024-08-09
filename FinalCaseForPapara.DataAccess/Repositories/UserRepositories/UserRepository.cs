@@ -43,10 +43,5 @@ namespace FinalCaseForPapara.DataAccess.Repositories.UserRepositories
         {
             return await _userManager.FindByEmailAsync(email);
         }
-
-        public async Task<User> GetUserById(string id)
-        {
-            return await _userManager.FindByIdAsync(id);
-        }
     }
 }

@@ -4,6 +4,7 @@ using FinalCaseForPapara.DataAccess.Repositories.UserRepositories;
 using FinalCaseForPapara.Entity.Entities;
 using Microsoft.AspNetCore.Identity;
 using FinalCaseForPapara.DataAccess.Repositories.ProductRepositories;
+using FinalCaseForPapara.DataAccess.Repositories.CouponRepositories;
 
 namespace FinalCaseForPapara.DataAccess.UnitOfWork
 {
@@ -17,15 +18,16 @@ namespace FinalCaseForPapara.DataAccess.UnitOfWork
         public IGenericRepository<ProductCategory> ProductCategoryRepository { get; }
         public IGenericRepository<Order> OrderRepository { get; }
         public IGenericRepository<OrderDetail> OrderDetailRepository { get; }
-        public IGenericRepository<Coupon> CouponRepository { get; }
+        public ICouponRepository CouponRepository { get; }
+        public IGenericRepository<Role> RoleRepository { get; }
 
         public UserManager<User> UserManager { get; }
-        public RoleManager<IdentityRole> RoleManager { get; }
+        public RoleManager<Role> RoleManager { get; }
         public SignInManager<User> SignInManager { get; }
 
         public UnitOfWork(PaparaDbContext context, 
             UserManager<User> userManager,
-            RoleManager<IdentityRole> roleManager,
+            RoleManager<Role> roleManager,
             SignInManager<User> signInManager)
         {
             _context = context;
@@ -35,8 +37,9 @@ namespace FinalCaseForPapara.DataAccess.UnitOfWork
             ProductCategoryRepository = new GenericRepository<ProductCategory>(_context);
             OrderRepository = new GenericRepository<Order>(_context);
             OrderDetailRepository = new GenericRepository<OrderDetail>(_context);
-            CouponRepository = new GenericRepository<Coupon>(_context);
+            CouponRepository = new CouponRepository(_context);
             UserRepository = new UserRepository(_context, userManager);
+            RoleRepository = new GenericRepository<Role>(_context);
 
             UserManager = userManager;
             RoleManager = roleManager;

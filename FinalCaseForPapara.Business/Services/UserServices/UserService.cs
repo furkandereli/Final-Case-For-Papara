@@ -3,7 +3,6 @@ using FinalCaseForPapara.Business.Services.JwtServices;
 using FinalCaseForPapara.DataAccess.UnitOfWork;
 using FinalCaseForPapara.Dto.UserDTOs;
 using FinalCaseForPapara.Entity.Entities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
 namespace FinalCaseForPapara.Business.Services.UserServices
@@ -14,19 +13,16 @@ namespace FinalCaseForPapara.Business.Services.UserServices
         private readonly IJwtService _jwtService;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public UserService(IUnitOfWork unitOfWork,
             IJwtService jwtService,
             IMapper mapper,
-            UserManager<User> userManager,
-            IHttpContextAccessor httpContextAccessor)
+            UserManager<User> userManager)
         {
             _unitOfWork = unitOfWork;
             _jwtService = jwtService;
             _mapper = mapper;
             _userManager = userManager;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<string> AddAdminUserAsync(RegisterDto registerDto)
@@ -37,7 +33,6 @@ namespace FinalCaseForPapara.Business.Services.UserServices
                 Email = registerDto.Email,
                 FirstName = registerDto.FirstName,
                 LastName = registerDto.LastName,
-                WalletBalance = 0,
                 PointsBalance = 0
             };
 
@@ -54,9 +49,9 @@ namespace FinalCaseForPapara.Business.Services.UserServices
             return "Admin user created successfully!";
         }
 
-        public async Task DeleteUserAsync(string id)
+        public async Task DeleteUserAsync(int id)
         {
-            var user = await _unitOfWork.UserRepository.GetUserById(id);
+            var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
             
             if(user != null)
             {
@@ -79,9 +74,9 @@ namespace FinalCaseForPapara.Business.Services.UserServices
             return results;
         }
 
-        public async Task<UserDto> GetUserByIdAsync(string id)
+        public async Task<UserDto> GetUserByIdAsync(int id)
         {
-            var user = await _unitOfWork.UserRepository.GetUserById(id);
+            var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
             var result = _mapper.Map<UserDto>(user);
             result.Role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
             return result;
@@ -105,7 +100,6 @@ namespace FinalCaseForPapara.Business.Services.UserServices
                 Email = registerDto.Email,
                 FirstName = registerDto.FirstName,
                 LastName = registerDto.LastName,
-                WalletBalance = 0,
                 PointsBalance = 0
             };
 
@@ -116,8 +110,8 @@ namespace FinalCaseForPapara.Business.Services.UserServices
                 var errors = string.Join(", ", result.Errors.Select(e => e.Description));
                 throw new Exception($"User registration failed : {errors}");
             }
-
-            await _unitOfWork.UserRepository.AddToRoleAsync(user, "User");
+            
+            await _userManager.AddToRoleAsync(user, "User");
             await _unitOfWork.CompleteAsync();
 
             return "Registration successfully !";
@@ -125,7 +119,7 @@ namespace FinalCaseForPapara.Business.Services.UserServices
 
         public async Task UpdateUserAsync(UpdateUserDto updateUserDto)
         {
-            var user = await _unitOfWork.UserRepository.GetUserById(updateUserDto.Id);
+            var user = await _unitOfWork.UserRepository.GetByIdAsync(updateUserDto.Id);
             
             if(user != null)
             {

@@ -5,6 +5,8 @@ using FinalCaseForPapara.Entity.Entities;
 using Microsoft.AspNetCore.Identity;
 using FinalCaseForPapara.Dto.CategoryDTOs;
 using FinalCaseForPapara.Dto.CouponDTOs;
+using FinalCaseForPapara.Dto.OrderDTOs;
+using FinalCaseForPapara.Dto.OrderDetailDTOs;
 
 namespace FinalCaseForPapara.Mapping
 {
@@ -34,6 +36,26 @@ namespace FinalCaseForPapara.Mapping
             CreateMap<Coupon, CouponDto>().ReverseMap();
             CreateMap<Coupon, CreateCouponDto>().ReverseMap();
             CreateMap<Coupon, UpdateCouponDto>().ReverseMap();
+
+            CreateMap<Order, OrderDto>()
+            .ForMember(dest => dest.OrderId, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.OrderDetails, opt => opt.MapFrom(src => src.OrderDetails));
+
+            CreateMap<OrderDetail, OrderDetailDto>()
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name));
+
+            CreateMap<CreateOrderDto, Order>()
+                .ForMember(dest => dest.OrderNumber, opt => opt.Ignore())
+                .ForMember(dest => dest.OrderDate, opt => opt.MapFrom(_ => DateTime.Now))
+                .ForMember(dest => dest.OrderDetails, opt => opt.MapFrom(src => src.Items.Select(item => new OrderDetail
+                {
+                    ProductId = item.ProductId,
+                    Quantity = item.Quantity,
+                }).ToList()));
+
+            CreateMap<OrderItemDto, OrderDetail>()
+                .ForMember(dest => dest.ProductId, opt => opt.MapFrom(src => src.ProductId))
+                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity));
         }
     }
 
