@@ -19,6 +19,7 @@ namespace FinalCaseForPapara.Business.Services.CouponServices
         public async Task CreateCouponAsync(CreateCouponDto createCouponDto)
         {
             var coupon = _mapper.Map<Coupon>(createCouponDto);
+            coupon.IsActive = true;
             await _unitOfWork.CouponRepository.CreateAsync(coupon);
             await _unitOfWork.CompleteAsync();
         }

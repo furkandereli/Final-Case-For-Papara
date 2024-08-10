@@ -5,6 +5,7 @@ using FinalCaseForPapara.Entity.Entities;
 using Microsoft.AspNetCore.Identity;
 using FinalCaseForPapara.DataAccess.Repositories.ProductRepositories;
 using FinalCaseForPapara.DataAccess.Repositories.CouponRepositories;
+using FinalCaseForPapara.DataAccess.Repositories.OrderRepositories;
 
 namespace FinalCaseForPapara.DataAccess.UnitOfWork
 {
@@ -16,7 +17,7 @@ namespace FinalCaseForPapara.DataAccess.UnitOfWork
         public IUserRepository UserRepository { get; }
         public IGenericRepository<Category> CategoryRepository { get; }
         public IGenericRepository<ProductCategory> ProductCategoryRepository { get; }
-        public IGenericRepository<Order> OrderRepository { get; }
+        public IOrderRepository OrderRepository { get; }
         public IGenericRepository<OrderDetail> OrderDetailRepository { get; }
         public ICouponRepository CouponRepository { get; }
         public IGenericRepository<Role> RoleRepository { get; }
@@ -35,7 +36,7 @@ namespace FinalCaseForPapara.DataAccess.UnitOfWork
             ProductRepository = new ProductRepository(_context);
             CategoryRepository = new GenericRepository<Category>(_context);
             ProductCategoryRepository = new GenericRepository<ProductCategory>(_context);
-            OrderRepository = new GenericRepository<Order>(_context);
+            OrderRepository = new OrderRepository(_context);
             OrderDetailRepository = new GenericRepository<OrderDetail>(_context);
             CouponRepository = new CouponRepository(_context);
             UserRepository = new UserRepository(_context, userManager);

@@ -1,5 +1,6 @@
 ﻿using FinalCaseForPapara.DataAccess.Repositories.CouponRepositories;
 using FinalCaseForPapara.DataAccess.Repositories.GenericRepositories;
+using FinalCaseForPapara.DataAccess.Repositories.OrderRepositories;
 using FinalCaseForPapara.DataAccess.Repositories.ProductRepositories;
 using FinalCaseForPapara.DataAccess.Repositories.UserRepositories;
 using FinalCaseForPapara.Entity.Entities;
@@ -14,7 +15,7 @@ namespace FinalCaseForPapara.DataAccess.UnitOfWork
         IProductRepository ProductRepository { get; }
         IGenericRepository<Category> CategoryRepository { get; }
         IGenericRepository<ProductCategory> ProductCategoryRepository { get; }
-        IGenericRepository<Order> OrderRepository { get; }
+        IOrderRepository OrderRepository { get; }
         IGenericRepository<OrderDetail> OrderDetailRepository { get; }
         ICouponRepository CouponRepository { get; }
         IUserRepository UserRepository { get; }

@@ -52,7 +52,7 @@ namespace FinalCaseForPapara.Business.Services.ProductServices
 
         public async Task<ProductDto> GetProductByIdAsync(int id)
         {
-            var product = await _unitOfWork.ProductRepository.GetByIdAsync(id);
+            var product = await _unitOfWork.ProductRepository.GetProductsByIdWithCategoriesAsync(id);
 
             if (product == null)
                 throw new KeyNotFoundException("Product not found !");

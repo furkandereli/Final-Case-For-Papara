@@ -5,8 +5,9 @@ namespace FinalCaseForPapara.DataAccess.Repositories.ProductRepositories
 {
     public interface IProductRepository : IGenericRepository<Product>
     {
+        Task<Product> GetProductsByIdWithCategoriesAsync(int id);
         Task<List<Product>> GetProductsWithCategoriesAsync();
-        Task ToggleStockStatusAsync(string productId);
-        Task ToggleActiveStatusAsync(string productId);
+        Task ToggleStockStatusAsync(int productId);
+        Task ToggleActiveStatusAsync(int productId);
     }
 }

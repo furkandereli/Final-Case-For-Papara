@@ -74,12 +74,12 @@ namespace FinalCaseForPapara.Business.Helpers
             return totalAmount < 0 ? 0 : totalAmount;
         }
 
-        public Order CreateOrder(int userId,decimal totalAmount, decimal pointsUsed, decimal? couponAmount, string? couponCode, List<OrderItemDto> items, List<Product> products)
+        public async Task<Order> CreateOrderAsync(int userId,decimal totalAmount, decimal pointsUsed, decimal? couponAmount, string? couponCode, List<OrderItemDto> items, List<Product> products)
         {
             var order = new Order
             {
                 UserId = userId,
-                OrderNumber = GenerateOrderNumber(),
+                OrderNumber = await GenerateOrderNumber(),
                 TotalAmount = totalAmount,
                 PointsUsed = pointsUsed > 0 ? pointsUsed : null,
                 CouponAmount = couponAmount,
@@ -107,16 +107,42 @@ namespace FinalCaseForPapara.Business.Helpers
             return order;
         }
 
-        public decimal CalculatePointsEarned(Product product, int quantity)
+        public decimal CalculateTotalPointsEarned(List<Product> products, List<OrderItemDto> items)
         {
-            var potentialPoints = (product.Price * product.PointsPercentage / 100) * quantity;
-            return potentialPoints > product.MaxPoints ? product.MaxPoints : potentialPoints;
+            decimal totalPoints = 0;
+
+            foreach (var item in items)
+            {
+                var product = products.FirstOrDefault(p => p.Id == item.ProductId);
+                if (product != null)
+                {
+                    var pointsEarned = CalculatePointsEarned(product, item.Quantity);
+                    totalPoints += pointsEarned;
+                }
+            }
+
+            return totalPoints;
         }
 
-        private string GenerateOrderNumber()
+        private decimal CalculatePointsEarned(Product product, int quantity)
+        {
+            var potentialPointsPerItem = (product.Price * product.PointsPercentage / 100);
+            var pointsPerItem = potentialPointsPerItem > product.MaxPoints ? product.MaxPoints : potentialPointsPerItem;
+            return pointsPerItem * quantity; 
+        }
+
+        private async Task<string> GenerateOrderNumber()
         {
             var random = new Random();
-            return random.Next(100000000, 999999999).ToString();
+            string orderNumber;
+
+            do
+            {
+                orderNumber = random.Next(100000000, 999999999).ToString();
+            }
+            while(await _unitOfWork.OrderRepository.AnyAsync(o => o.OrderNumber == orderNumber));
+
+            return orderNumber;
         }
     }
 }

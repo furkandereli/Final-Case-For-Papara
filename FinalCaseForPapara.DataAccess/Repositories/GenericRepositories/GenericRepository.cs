@@ -42,10 +42,8 @@ namespace FinalCaseForPapara.DataAccess.Repositories.GenericRepositories
             if (predicate != null)
                 query = query.Where(predicate);
 
-            foreach (var include in includes)
-            {
-                query = query.Include(include);
-            }
+            if (includes != null)
+                query = includes.Aggregate(query, (current, include) => current.Include(include));
 
             return await query.ToListAsync();
         }

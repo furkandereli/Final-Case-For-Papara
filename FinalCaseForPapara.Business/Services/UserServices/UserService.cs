@@ -67,8 +67,9 @@ namespace FinalCaseForPapara.Business.Services.UserServices
 
             foreach(var result in results)
             {
-                var user = await _userManager.FindByEmailAsync(result.Email);
-                result.Role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+                var user = await _userManager.FindByIdAsync(Convert.ToString(result.Id));
+                if(user != null )
+                    result.Role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
             }
 
             return results;
@@ -78,7 +79,10 @@ namespace FinalCaseForPapara.Business.Services.UserServices
         {
             var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
             var result = _mapper.Map<UserDto>(user);
-            result.Role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+
+            if(user !=  null)
+                result.Role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+            
             return result;
         }
 

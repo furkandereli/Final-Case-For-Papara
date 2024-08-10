@@ -3,19 +3,20 @@ using FinalCaseForPapara.Business.Jwt;
 using FinalCaseForPapara.Business.Services.CategoryServices;
 using FinalCaseForPapara.Business.Services.CouponServices;
 using FinalCaseForPapara.Business.Services.JwtServices;
+using FinalCaseForPapara.Business.Services.OrderDetailServices;
 using FinalCaseForPapara.Business.Services.OrderServices;
 using FinalCaseForPapara.Business.Services.ProductServices;
 using FinalCaseForPapara.Business.Services.UserServices;
 using FinalCaseForPapara.DataAccess.Context;
 using FinalCaseForPapara.DataAccess.Repositories.CouponRepositories;
 using FinalCaseForPapara.DataAccess.Repositories.GenericRepositories;
+using FinalCaseForPapara.DataAccess.Repositories.OrderRepositories;
 using FinalCaseForPapara.DataAccess.Repositories.ProductRepositories;
 using FinalCaseForPapara.DataAccess.Repositories.UserRepositories;
 using FinalCaseForPapara.DataAccess.UnitOfWork;
 using FinalCaseForPapara.Entity.Entities;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -33,6 +34,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICouponRepository, CouponRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 builder.Services.AddIdentity<User, Role>()
     .AddEntityFrameworkStores<PaparaDbContext>();
@@ -43,6 +45,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICouponService, CouponService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IOrderDetailService, OrderDetailService>();
 builder.Services.AddScoped<OrderHelper>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

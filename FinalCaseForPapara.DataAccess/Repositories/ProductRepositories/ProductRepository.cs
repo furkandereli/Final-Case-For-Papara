@@ -9,6 +9,15 @@ namespace FinalCaseForPapara.DataAccess.Repositories.ProductRepositories
     {
         public ProductRepository(PaparaDbContext context) : base(context) { }
 
+        public async Task<Product> GetProductsByIdWithCategoriesAsync(int id)
+        {
+            return await _context.Products
+                .Include(p => p.ProductCategories)
+                .ThenInclude(pc => pc.Category)
+                .Where(p => p.Id == id)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<List<Product>> GetProductsWithCategoriesAsync()
         {
             return await _context.Products
@@ -17,7 +26,7 @@ namespace FinalCaseForPapara.DataAccess.Repositories.ProductRepositories
                 .ToListAsync();
         }
 
-        public async Task ToggleActiveStatusAsync(string productId)
+        public async Task ToggleActiveStatusAsync(int productId)
         {
             var product = await _context.Products.FindAsync(productId);
 
@@ -28,7 +37,7 @@ namespace FinalCaseForPapara.DataAccess.Repositories.ProductRepositories
             }
         }
 
-        public async Task ToggleStockStatusAsync(string productId)
+        public async Task ToggleStockStatusAsync(int productId)
         {
             var product = await _context.Products.FindAsync(productId);
 

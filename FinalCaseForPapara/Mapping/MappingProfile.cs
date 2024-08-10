@@ -42,7 +42,8 @@ namespace FinalCaseForPapara.Mapping
             .ForMember(dest => dest.OrderDetails, opt => opt.MapFrom(src => src.OrderDetails));
 
             CreateMap<OrderDetail, OrderDetailDto>()
-                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name));
+                .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Product.Name))
+                .ForMember(dest => dest.OrderId, opt => opt.MapFrom(src => src.Order.Id));
 
             CreateMap<CreateOrderDto, Order>()
                 .ForMember(dest => dest.OrderNumber, opt => opt.Ignore())
