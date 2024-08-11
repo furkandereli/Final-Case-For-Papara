@@ -48,6 +48,10 @@ namespace FinalCaseForPapara.Business.Services.CouponServices
         public async Task<ApiResponse<CouponDto>> GetCouponById(int id)
         {
             var coupon = await _unitOfWork.CouponRepository.GetByIdAsync(id);
+
+            if(coupon == null)
+                return new ApiResponse<CouponDto>("Coupon not found !", false);
+
             var couponDto =  _mapper.Map<CouponDto>(coupon);
             return new ApiResponse<CouponDto>(couponDto, "Coupon displayed successfully !");
         }

@@ -83,7 +83,7 @@ namespace FinalCaseForPapara.Business.Services.UserServices
             var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
 
             if(user ==  null)
-                return new ApiResponse<UserDto>("User not found.", false);
+                return new ApiResponse<UserDto>("User not found !", false);
                 
             var result = _mapper.Map<UserDto>(user);
             result.Role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
@@ -97,7 +97,7 @@ namespace FinalCaseForPapara.Business.Services.UserServices
             if (user != null && await _unitOfWork.UserRepository.CheckPasswordAsync(user, loginDto.Password))
                 return await _jwtService.GenerateJwtToken(user);
 
-            throw new Exception("Invalid credentials");
+            throw new Exception("Invalid credentials !");
         }
 
         public async Task<ApiResponse<string>> RegisterAsync(RegisterDto registerDto)

@@ -50,7 +50,7 @@ namespace FinalCaseForPapara.Controllers
             return Ok(response);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("ToggleCouponActivity/{id}")]
         public async Task<IActionResult> ToggleCouponActivity(int id)
         {
             var response = await _couponService.ToggleCouponActivity(id);

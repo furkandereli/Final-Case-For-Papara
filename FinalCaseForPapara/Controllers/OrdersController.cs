@@ -64,5 +64,17 @@ namespace FinalCaseForPapara.Controllers
 
             return Ok(response);
         }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPut("ToggleOrderActivity/{id}")]
+        public async Task<IActionResult> ToggleOrderActivity(int id)
+        {
+            var response = await _orderService.ToggleOrderActivityAsync(id);
+
+            if(!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
+        }
     }
 }

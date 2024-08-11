@@ -74,6 +74,7 @@ namespace FinalCaseForPapara.Business.Services.ProductServices
                 product.IsActive = !product.IsActive;
                 await _unitOfWork.ProductRepository.UpdateAsync(product);
                 await _unitOfWork.CompleteAsync();
+                return new ApiResponse<string>("Product activity toggled successfully !", true);
             }
 
             return new ApiResponse<string>("Product not found !", false);
@@ -88,6 +89,7 @@ namespace FinalCaseForPapara.Business.Services.ProductServices
                 product.Stock = !product.Stock;
                 await _unitOfWork.ProductRepository.UpdateAsync(product);
                 await _unitOfWork.CompleteAsync();
+                return new ApiResponse<string>("Product stock toggled successfully !", true);
             }
 
             return new ApiResponse<string>("Product not found !", false);

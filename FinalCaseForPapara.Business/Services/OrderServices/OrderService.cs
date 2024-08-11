@@ -115,5 +115,20 @@ namespace FinalCaseForPapara.Business.Services.OrderServices
                 return new ApiResponse<object>(user.PointsBalance, "User points displayed successfully !");
             }
         }
+
+        public async Task<ApiResponse<string>> ToggleOrderActivityAsync(int id)
+        {
+            var order = await _unitOfWork.OrderRepository.GetByIdAsync(id);
+
+            if (order == null)
+                return new ApiResponse<string>("Order not found !", false);
+
+            order.IsActive = !order.IsActive;
+
+            await _unitOfWork.OrderRepository.UpdateAsync(order);
+            await _unitOfWork.CompleteAsync();
+
+            return new ApiResponse<string>("Order toggled successfully !", true);
+        }
     }
 }

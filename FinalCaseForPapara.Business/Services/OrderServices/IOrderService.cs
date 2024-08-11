@@ -9,5 +9,6 @@ namespace FinalCaseForPapara.Business.Services.OrderServices
         Task<ApiResponse<List<OrderDto>>> GetActiveOrdersAsync();
         Task<ApiResponse<List<OrderDto>>> GetPastOrdersAsync();
         Task<ApiResponse<object>> GetUserPointsAsync();
+        Task<ApiResponse<string>> ToggleOrderActivityAsync(int id);
     }
 }
