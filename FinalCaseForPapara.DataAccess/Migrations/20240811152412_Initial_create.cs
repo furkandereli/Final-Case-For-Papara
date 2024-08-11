@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace FinalCaseForPapara.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class create_database : Migration
+    public partial class Initial_create : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -65,7 +65,7 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Tags = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Tag = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -306,7 +306,7 @@ namespace FinalCaseForPapara.DataAccess.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PointsBalance", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "d6fd6265-788a-4d03-a37c-bf730dbe0b07", "papara@admin.com", true, "Admin", "User", false, null, "PAPARA@ADMIN.COM", "ADMIN", "AQAAAAIAAYagAAAAECa9hw+fakurne/ORIRFgT2WhLYHvdXeY4V4k8ID8bc+tEB5Ooprjj58sDnfLUx/UQ==", null, false, 0m, null, false, "Admin" });
+                values: new object[] { 1, 0, "ba987eb7-3ed9-4dd1-81fa-55e965698e51", "papara@admin.com", true, "Admin", "User", false, null, "PAPARA@ADMIN.COM", "ADMIN", "AQAAAAIAAYagAAAAEHg0Qf0mey3CFKWBsib5DgBAG20h1emfKDTPg9fCyPlivsiZriWNQtnoKMvNsM6obA==", null, false, 0m, null, false, "Admin" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

@@ -118,7 +118,7 @@ namespace FinalCaseForPapara.DataAccess.Context
             };
 
             var passwordHasher = new PasswordHasher<User>();
-            adminUser.PasswordHash = passwordHasher.HashPassword(adminUser, "PaparaAdmin123");
+            adminUser.PasswordHash = passwordHasher.HashPassword(adminUser, "Papara.Admin123");
 
             modelBuilder.Entity<User>().HasData(adminUser);
 

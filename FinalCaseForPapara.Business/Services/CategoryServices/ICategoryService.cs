@@ -1,15 +1,16 @@
-﻿using FinalCaseForPapara.Dto.CategoryDTOs;
+﻿using FinalCaseForPapara.Business.Response;
+using FinalCaseForPapara.Dto.CategoryDTOs;
 using FinalCaseForPapara.Dto.ProductDTOs;
 
 namespace FinalCaseForPapara.Business.Services.CategoryServices
 {
     public interface ICategoryService
     {
-        Task<List<CategoryDto>> GetAllAsync();
-        Task<CategoryDto> GetCategoryByIdAsync(int id);
-        Task CreateCategoryAsync(CreateCategoryDto createCategoryDto);
-        Task DeleteCategoryAsync(int id);
-        Task UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto);
-        Task<List<ProductDto>> GetProductsByCategoryAsync(int id);
+        Task<ApiResponse<List<CategoryDto>>> GetAllAsync();
+        Task<ApiResponse<CategoryDto>> GetCategoryByIdAsync(int id);
+        Task<ApiResponse<string>> CreateCategoryAsync(CreateCategoryDto createCategoryDto);
+        Task<ApiResponse<string>> DeleteCategoryAsync(int id);
+        Task<ApiResponse<string>> UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto);
+        Task<ApiResponse<List<ProductDto>>> GetProductsByCategoryAsync(int id);
     }
 }

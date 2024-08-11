@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FinalCaseForPapara.Business.Helpers;
+using FinalCaseForPapara.Business.Response;
 using FinalCaseForPapara.DataAccess.Repositories.OrderRepositories;
 using FinalCaseForPapara.DataAccess.UnitOfWork;
 using FinalCaseForPapara.Dto.OrderDTOs;
@@ -43,7 +44,7 @@ namespace FinalCaseForPapara.Business.Services.OrderServices
             return _httpContextAccessor.HttpContext.User.IsInRole("Admin");
         }
 
-        public async Task<OrderDto> CreateOrderAsync(CreateOrderDto createOrderDto)
+        public async Task<ApiResponse<OrderDto>> CreateOrderAsync(CreateOrderDto createOrderDto)
         {
             var userId = GetUserId();
 
@@ -67,28 +68,31 @@ namespace FinalCaseForPapara.Business.Services.OrderServices
 
             await _unitOfWork.CompleteAsync();
 
-            return _mapper.Map<OrderDto>(order);
+            var orderDto = _mapper.Map<OrderDto>(order);
+            return new ApiResponse<OrderDto>(orderDto, "Order created successfully !");
         }
 
-        public async Task<List<OrderDto>> GetActiveOrdersAsync()
+        public async Task<ApiResponse<List<OrderDto>>> GetActiveOrdersAsync()
         {
             var userId = GetUserId();
             var isAdmin = IsAdmin();
 
             var orders = await _orderRepository.GetActiveOrdersAsync(int.Parse(userId), isAdmin);
-            return _mapper.Map<List<OrderDto>>(orders);
+            var orderDto = _mapper.Map<List<OrderDto>>(orders);
+            return new ApiResponse<List<OrderDto>>(orderDto, "Active orders displayed successfully !");
         }
 
-        public async Task<List<OrderDto>> GetPastOrdersAsync()
+        public async Task<ApiResponse<List<OrderDto>>> GetPastOrdersAsync()
         {
             var userId = GetUserId();
             var isAdmin = IsAdmin();
 
             var orders = await _orderRepository.GetPastOrdersAsync(int.Parse(userId), isAdmin);
-            return _mapper.Map<List<OrderDto>>(orders);
+            var orderDto = _mapper.Map<List<OrderDto>>(orders);
+            return new ApiResponse<List<OrderDto>>(orderDto, "Past orders displayed successfully !");
         }
 
-        public async Task<object> GetUserPointsAsync()
+        public async Task<ApiResponse<object>> GetUserPointsAsync()
         {
             var userId = GetUserId();
             var isAdmin = IsAdmin();
@@ -103,12 +107,12 @@ namespace FinalCaseForPapara.Business.Services.OrderServices
                     PointsBalance = u.PointsBalance
                 }).ToList();
 
-                return userPoints;
+                return new ApiResponse<object>(userPoints, "All users' points displayed successfully !");
             }
             else
             {
                 var user = await _unitOfWork.UserRepository.GetByIdAsync(int.Parse(userId));
-                return user.PointsBalance;
+                return new ApiResponse<object>(user.PointsBalance, "User points displayed successfully !");
             }
         }
     }

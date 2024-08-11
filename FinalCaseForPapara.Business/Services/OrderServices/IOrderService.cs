@@ -1,12 +1,13 @@
-﻿using FinalCaseForPapara.Dto.OrderDTOs;
+﻿using FinalCaseForPapara.Business.Response;
+using FinalCaseForPapara.Dto.OrderDTOs;
 
 namespace FinalCaseForPapara.Business.Services.OrderServices
 {
     public interface IOrderService
     {
-        Task<OrderDto> CreateOrderAsync(CreateOrderDto createOrderDto);
-        Task<List<OrderDto>> GetActiveOrdersAsync();
-        Task<List<OrderDto>> GetPastOrdersAsync();
-        Task<object> GetUserPointsAsync();
+        Task<ApiResponse<OrderDto>> CreateOrderAsync(CreateOrderDto createOrderDto);
+        Task<ApiResponse<List<OrderDto>>> GetActiveOrdersAsync();
+        Task<ApiResponse<List<OrderDto>>> GetPastOrdersAsync();
+        Task<ApiResponse<object>> GetUserPointsAsync();
     }
 }

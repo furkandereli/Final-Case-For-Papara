@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FinalCaseForPapara.Business.Response;
 using FinalCaseForPapara.Business.Services.JwtServices;
 using FinalCaseForPapara.DataAccess.UnitOfWork;
 using FinalCaseForPapara.Dto.UserDTOs;
@@ -25,7 +26,7 @@ namespace FinalCaseForPapara.Business.Services.UserServices
             _userManager = userManager;
         }
 
-        public async Task<string> AddAdminUserAsync(RegisterDto registerDto)
+        public async Task<ApiResponse<string>> AddAdminUserAsync(RegisterDto registerDto)
         {
             var user = new User
             {
@@ -41,15 +42,14 @@ namespace FinalCaseForPapara.Business.Services.UserServices
             if (!result.Succeeded)
             {
                 var errors = string.Join(", ", result.Errors.Select(e => e.Description));
-                throw new Exception($"Admin user creation failed: {errors}");
+                return new ApiResponse<string>($"Admin user creation failed: {errors}", false);
             }
 
             await _unitOfWork.CompleteAsync();
-
-            return "Admin user created successfully!";
+            return new ApiResponse<string>("Admin user created successfully !", true);
         }
 
-        public async Task DeleteUserAsync(int id)
+        public async Task<ApiResponse<string>> DeleteUserAsync(int id)
         {
             var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
             
@@ -57,10 +57,13 @@ namespace FinalCaseForPapara.Business.Services.UserServices
             {
                 await _unitOfWork.UserRepository.DeleteAsync(user);
                 await _unitOfWork.CompleteAsync();
+                return new ApiResponse<string>("User deleted successfully !", true);
             }
+
+            return new ApiResponse<string>("User not found !", false);
         }
 
-        public async Task<List<UserDto>> GetAllUserAsync()
+        public async Task<ApiResponse<List<UserDto>>> GetAllUserAsync()
         {
             var users = await _unitOfWork.UserRepository.GetAllAsync();
             var results = _mapper.Map<List<UserDto>>(users);
@@ -72,31 +75,32 @@ namespace FinalCaseForPapara.Business.Services.UserServices
                     result.Role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
             }
 
-            return results;
+            return new ApiResponse<List<UserDto>>(results, "Users displayed successfully !");
         }
 
-        public async Task<UserDto> GetUserByIdAsync(int id)
+        public async Task<ApiResponse<UserDto>> GetUserByIdAsync(int id)
         {
             var user = await _unitOfWork.UserRepository.GetByIdAsync(id);
-            var result = _mapper.Map<UserDto>(user);
 
-            if(user !=  null)
-                result.Role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
-            
-            return result;
+            if(user ==  null)
+                return new ApiResponse<UserDto>("User not found.", false);
+                
+            var result = _mapper.Map<UserDto>(user);
+            result.Role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+            return new ApiResponse<UserDto>(result, "User displayed successfully !");
         }
 
         public async Task<string> LoginAsync(LoginDto loginDto)
         {
             var user = await _unitOfWork.UserRepository.FindByEmailAsync(loginDto.Email);
 
-            if(user != null && await _unitOfWork.UserRepository.CheckPasswordAsync(user, loginDto.Password))
+            if (user != null && await _unitOfWork.UserRepository.CheckPasswordAsync(user, loginDto.Password))
                 return await _jwtService.GenerateJwtToken(user);
 
             throw new Exception("Invalid credentials");
         }
 
-        public async Task<string> RegisterAsync(RegisterDto registerDto)
+        public async Task<ApiResponse<string>> RegisterAsync(RegisterDto registerDto)
         {
             var user = new User
             {
@@ -112,16 +116,16 @@ namespace FinalCaseForPapara.Business.Services.UserServices
             if(!result.Succeeded)
             {
                 var errors = string.Join(", ", result.Errors.Select(e => e.Description));
-                throw new Exception($"User registration failed : {errors}");
+                return new ApiResponse<string>($"User registration failed: {errors}", false);
             }
             
             await _userManager.AddToRoleAsync(user, "User");
             await _unitOfWork.CompleteAsync();
 
-            return "Registration successfully !";
+            return new ApiResponse<string>("Registration successfully !", true);
         }
 
-        public async Task UpdateUserAsync(UpdateUserDto updateUserDto)
+        public async Task<ApiResponse<string>> UpdateUserAsync(UpdateUserDto updateUserDto)
         {
             var user = await _unitOfWork.UserRepository.GetByIdAsync(updateUserDto.Id);
             
@@ -130,7 +134,10 @@ namespace FinalCaseForPapara.Business.Services.UserServices
                 _mapper.Map(updateUserDto, user);
                 await _unitOfWork.UserRepository.UpdateAsync(user);
                 await _unitOfWork.CompleteAsync();
+                return new ApiResponse<string>("User updated successfully !", true);
             }
+
+            return new ApiResponse<string>("User not found !", false);
         }
     }
 }

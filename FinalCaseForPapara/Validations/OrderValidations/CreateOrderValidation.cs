@@ -1,15 +1,15 @@
 ﻿using FinalCaseForPapara.Dto.OrderDTOs;
 using FluentValidation;
 
-namespace FinalCaseForPapara.Validations
+namespace FinalCaseForPapara.Validations.OrderValidations
 {
-    public class CreditCardValidation : AbstractValidator<CreateOrderDto>
+    public class CreateOrderValidation : AbstractValidator<CreateOrderDto>
     {
-        public CreditCardValidation()
+        public CreateOrderValidation()
         {
-            //RuleFor(c => c.CreditCardNumber)
-            //    .CreditCard()
-            //    .WithMessage("Invalid credit card number");
+            RuleFor(c => c.CreditCardNumber)
+                .Length(16)
+                .WithMessage("Credit card number must be 16 digits.");
 
             RuleForEach(c => c.Items)
                 .ChildRules(items =>

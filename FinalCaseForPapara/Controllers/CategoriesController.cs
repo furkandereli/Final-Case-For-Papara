@@ -1,4 +1,5 @@
-﻿using FinalCaseForPapara.Business.Services.CategoryServices;
+﻿using Azure;
+using FinalCaseForPapara.Business.Services.CategoryServices;
 using FinalCaseForPapara.Dto.CategoryDTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,43 +21,67 @@ namespace FinalCaseForPapara.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllCategories()
         {
-            var categories = await _categoryService.GetAllAsync();
-            return Ok(categories);
+            var response = await _categoryService.GetAllAsync();
+            
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCategoryById(int id)
         {
-            var category = await _categoryService.GetCategoryByIdAsync(id);
-            return Ok(category);
+            var response = await _categoryService.GetCategoryByIdAsync(id);
+
+            if (!response.Success)
+                return NotFound(response);
+
+            return Ok(response);
         }
 
         [HttpGet("Products/{id}")]
         public async Task<IActionResult> GetProductsByCategoryId(int id)
         {
-            var products = await _categoryService.GetProductsByCategoryAsync(id);
-            return Ok(products);
+            var response = await _categoryService.GetProductsByCategoryAsync(id);
+
+            if (!response.Success)
+                return NotFound(response);
+
+            return Ok(response);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateCategory(CreateCategoryDto createCategoryDto)
         {
-            await _categoryService.CreateCategoryAsync(createCategoryDto);
-            return Ok("Category created successfully !");
+            var response = await _categoryService.CreateCategoryAsync(createCategoryDto);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            await _categoryService.DeleteCategoryAsync(id);
-            return Ok("Category deleted successfully !");
+            var response = await _categoryService.DeleteCategoryAsync(id);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateCategory(UpdateCategoryDto updateCategoryDto)
         {
-            await _categoryService.UpdateCategoryAsync(updateCategoryDto);
-            return Ok("Category updated successfully !");
+            var response = await _categoryService.UpdateCategoryAsync(updateCategoryDto);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
     }
 }

@@ -20,40 +20,60 @@ namespace FinalCaseForPapara.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = await _userService.GetAllUserAsync();
-            return Ok(users);
+            var response = await _userService.GetAllUserAsync();
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetUserById(int id)
         {
-            var user = await _userService.GetUserByIdAsync(id);
-            return Ok(user);
+            var response = await _userService.GetUserByIdAsync(id);
+
+            if (!response.Success)
+                return NotFound(response);
+
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            await _userService.DeleteUserAsync(id);
-            return Ok("User deleted successfully !");
+            var response = await _userService.DeleteUserAsync(id);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
 
         [HttpPut]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto)
         {
-            await _userService.UpdateUserAsync(updateUserDto);
-            return Ok("User updated succesfully !");
+            var response = await _userService.UpdateUserAsync(updateUserDto);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
 
         [HttpPost("Register")]
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
-            var message = await _userService.RegisterAsync(registerDto);
-            return Ok(new { Message = message });
+            var response = await _userService.RegisterAsync(registerDto);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
 
         [HttpPost("Login")]
@@ -68,8 +88,12 @@ namespace FinalCaseForPapara.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> CreateAdminUser([FromBody] RegisterDto registerDto)
         {
-            var message = await _userService.AddAdminUserAsync(registerDto);
-            return Ok(new { Message = message });
+            var response = await _userService.AddAdminUserAsync(registerDto);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
     }
 }

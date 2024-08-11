@@ -20,50 +20,78 @@ namespace FinalCaseForPapara.Controllers
         [HttpGet]
         public async Task<IActionResult> GettAllProducts()
         {
-            var products = await _productService.GetAllAsync();
-            return Ok(products);
+            var response = await _productService.GetAllAsync();
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductById(int id)
         {
-            var product = await _productService.GetProductByIdAsync(id);
-            return Ok(product);
+            var response = await _productService.GetProductByIdAsync(id);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductDto createProductDto)
         {
-            await _productService.CreateProductAsync(createProductDto);
-            return Ok("Product created successfully !");
+            var response = await _productService.CreateProductAsync(createProductDto);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteProduct(int id)
         {
-            await _productService.DeleteProductAsync(id);
-            return Ok("Product deleted successfully !");
+            var response = await _productService.DeleteProductAsync(id);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateProduct(UpdateProductDto updateProductDto)
         {
-            await _productService.UpdateProductAsync(updateProductDto);
-            return Ok("Product updated successfully !");
+            var response = await _productService.UpdateProductAsync(updateProductDto);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
 
         [HttpPut("ToggleStock/{id}")]
         public async Task<IActionResult> ToggleStockStatus(int id)
         {
-            await _productService.ToggleStockStatusAsync(id);
-            return Ok("Product stock status toggled successfully !");
+            var response = await _productService.ToggleStockStatusAsync(id);
+            
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
 
         [HttpPut("ToggleActive/{id}")]
         public async Task<IActionResult> ToggleActiveStatus(int id)
         {
-            await _productService.ToggleActiveStatusAsync(id);
-            return Ok("Product active status toggled successfully !");
+            var response = await _productService.ToggleActiveStatusAsync(id);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
     }
 }

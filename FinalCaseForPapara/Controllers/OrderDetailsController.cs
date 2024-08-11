@@ -19,8 +19,12 @@ namespace FinalCaseForPapara.Controllers
         [HttpGet]
         public async Task<IActionResult> GetOrderDetails()
         {
-            var orderDetails = await _orderDetailService.GetOrderDetailsAsync();
-            return Ok(orderDetails);
+            var response = await _orderDetailService.GetOrderDetailsAsync();
+
+            if(!response.Success)
+                return NotFound(response);
+
+            return Ok(response);
         }
     }
 }

@@ -21,36 +21,48 @@ namespace FinalCaseForPapara.Controllers
         [HttpGet("PointsBalance")]
         public async Task<IActionResult> GetUserPoints()
         {
-            var result = await _orderService.GetUserPointsAsync();
+            var response = await _orderService.GetUserPointsAsync();
 
-            if(result is decimal userPoints)
+            if(response.Data is decimal userPoints)
                 return Ok(new { Points = userPoints });
             
-            else if(result is List<UserPointsDto> userPointsList)
+            else if(response.Data is List<UserPointsDto> userPointsList)
                 return Ok(userPointsList);
 
-            return BadRequest("Invalid request");
+            return BadRequest(response.Message);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateOrder(CreateOrderDto createOrderDto)
         {
-            await _orderService.CreateOrderAsync(createOrderDto);
-            return Ok("Order created successfully !");
+            var response = await _orderService.CreateOrderAsync(createOrderDto);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
 
         [HttpGet("ActiveOrders")]
         public async Task<IActionResult> GetActiveOrders()
         {
-            var activeOrders = await _orderService.GetActiveOrdersAsync();
-            return Ok(activeOrders);
+            var response = await _orderService.GetActiveOrdersAsync();
+
+            if (!response.Success)
+                return NotFound(response);
+
+            return Ok(response);
         }
 
         [HttpGet("PastOrders")]
         public async Task<IActionResult> GetPastOrders()
         {
-            var pastOrders = await _orderService.GetPastOrdersAsync();
-            return Ok(pastOrders);
+            var response = await _orderService.GetPastOrdersAsync();
+
+            if (!response.Success)
+                return NotFound(response);
+
+            return Ok(response);
         }
     }
 }

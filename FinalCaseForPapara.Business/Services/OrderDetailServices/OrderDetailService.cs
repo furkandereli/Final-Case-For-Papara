@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FinalCaseForPapara.Business.Response;
 using FinalCaseForPapara.DataAccess.UnitOfWork;
 using FinalCaseForPapara.Dto.OrderDetailDTOs;
 using FinalCaseForPapara.Entity.Entities;
@@ -20,11 +21,11 @@ namespace FinalCaseForPapara.Business.Services.OrderDetailServices
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<OrderDetailDto>> GetOrderDetailsAsync()
+        public async Task<ApiResponse<List<OrderDetailDto>>> GetOrderDetailsAsync()
         {
             var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (userId == null)
-                throw new UnauthorizedAccessException("Lütfen giriş yapın.");
+                return new ApiResponse<List<OrderDetailDto>>("Please log in !", false);
 
             var isAdmin = _httpContextAccessor.HttpContext.User.IsInRole("Admin");
 
@@ -35,7 +36,8 @@ namespace FinalCaseForPapara.Business.Services.OrderDetailServices
             else
                 orderDetails = await _unitOfWork.OrderDetailRepository.GetAllAsync(od => od.Order.UserId == int.Parse(userId), od => od.Product, od => od.Order);
 
-            return _mapper.Map<List<OrderDetailDto>>(orderDetails);
+            var orderDetailDtos = _mapper.Map<List<OrderDetailDto>>(orderDetails);
+            return new ApiResponse<List<OrderDetailDto>>(orderDetailDtos, "Order details displayed successfully !");
         }
     }
 }

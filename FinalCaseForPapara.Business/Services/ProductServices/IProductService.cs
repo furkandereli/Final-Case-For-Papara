@@ -1,15 +1,16 @@
-﻿using FinalCaseForPapara.Dto.ProductDTOs;
+﻿using FinalCaseForPapara.Business.Response;
+using FinalCaseForPapara.Dto.ProductDTOs;
 
 namespace FinalCaseForPapara.Business.Services.ProductServices
 {
     public interface IProductService
     {
-        Task<List<ProductDto>> GetAllAsync();
-        Task<ProductDto> GetProductByIdAsync(int id);
-        Task CreateProductAsync(CreateProductDto createProductDto);
-        Task DeleteProductAsync(int id);
-        Task UpdateProductAsync(UpdateProductDto updateProductDto);
-        Task ToggleStockStatusAsync(int id);
-        Task ToggleActiveStatusAsync(int id);
+        Task<ApiResponse<List<ProductDto>>> GetAllAsync();
+        Task<ApiResponse<ProductDto>> GetProductByIdAsync(int id);
+        Task<ApiResponse<string>> CreateProductAsync(CreateProductDto createProductDto);
+        Task<ApiResponse<string>> DeleteProductAsync(int id);
+        Task<ApiResponse<string>> UpdateProductAsync(UpdateProductDto updateProductDto);
+        Task<ApiResponse<string>> ToggleStockStatusAsync(int id);
+        Task<ApiResponse<string>> ToggleActiveStatusAsync(int id);
     }
 }

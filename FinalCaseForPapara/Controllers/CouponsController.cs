@@ -20,36 +20,67 @@ namespace FinalCaseForPapara.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllCoupons()
         {
-            var coupons = await _couponService.GetAllAsync();
-            return Ok(coupons);
+            var response = await _couponService.GetAllAsync();
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCouponById(int id)
         {
-            var coupon = await _couponService.GetCouponById(id);
-            return Ok(coupon);
+            var response = await _couponService.GetCouponById(id);
+
+            if (!response.Success)
+                return NotFound(response);
+
+            return Ok(response);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateCoupon(CreateCouponDto createCouponDto)
         {
-            await _couponService.CreateCouponAsync(createCouponDto);
-            return Ok("Coupon created successfully !");
+            var response = await _couponService.CreateCouponAsync(createCouponDto);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> ToggleCouponActivity(int id)
+        {
+            var response = await _couponService.ToggleCouponActivity(id);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
 
         [HttpDelete]
         public async Task<IActionResult> DeleteCoupon(int id)
         {
-            await _couponService.DeleteCouponAsync(id);
-            return Ok("Coupon deleted successfully !");
+            var response = await _couponService.DeleteCouponAsync(id);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateCoupon(UpdateCouponDto updateCouponDto)
         {
-            await _couponService.UpdateCouponAsync(updateCouponDto);
-            return Ok("Coupon updated successfully !");
+            var response = await _couponService.UpdateCouponAsync(updateCouponDto);
+
+            if (!response.Success)
+                return BadRequest(response);
+
+            return Ok(response);
         }
     }
 }

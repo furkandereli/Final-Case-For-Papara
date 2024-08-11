@@ -34,7 +34,7 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Tags")
+                    b.Property<string>("Tag")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -337,7 +337,7 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d6fd6265-788a-4d03-a37c-bf730dbe0b07",
+                            ConcurrencyStamp = "ba987eb7-3ed9-4dd1-81fa-55e965698e51",
                             Email = "papara@admin.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -345,7 +345,7 @@ namespace FinalCaseForPapara.DataAccess.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "PAPARA@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAECa9hw+fakurne/ORIRFgT2WhLYHvdXeY4V4k8ID8bc+tEB5Ooprjj58sDnfLUx/UQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHg0Qf0mey3CFKWBsib5DgBAG20h1emfKDTPg9fCyPlivsiZriWNQtnoKMvNsM6obA==",
                             PhoneNumberConfirmed = false,
                             PointsBalance = 0m,
                             TwoFactorEnabled = false,

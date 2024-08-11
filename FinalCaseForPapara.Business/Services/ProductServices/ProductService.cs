@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FinalCaseForPapara.Business.Response;
 using FinalCaseForPapara.DataAccess.UnitOfWork;
 using FinalCaseForPapara.Dto.ProductDTOs;
 using FinalCaseForPapara.Entity.Entities;
@@ -16,7 +17,7 @@ namespace FinalCaseForPapara.Business.Services.ProductServices
             _mapper = mapper;
         }
 
-        public async Task CreateProductAsync(CreateProductDto createProductDto)
+        public async Task<ApiResponse<string>> CreateProductAsync(CreateProductDto createProductDto)
         {
             var product = _mapper.Map<Product>(createProductDto);
 
@@ -31,36 +32,40 @@ namespace FinalCaseForPapara.Business.Services.ProductServices
 
             await _unitOfWork.ProductRepository.CreateAsync(product);
             await _unitOfWork.CompleteAsync();
+            return new ApiResponse<string>("Product created successfully !", true);
         }
 
-        public async Task DeleteProductAsync(int id)
+        public async Task<ApiResponse<string>> DeleteProductAsync(int id)
         {
             var product = await _unitOfWork.ProductRepository.GetByIdAsync(id);
             
             if (product == null)
-                throw new KeyNotFoundException("Product not found !");
+                return new ApiResponse<string>("Product not found !", false);
 
             _unitOfWork.ProductRepository.DeleteAsync(product);
             await _unitOfWork.CompleteAsync();
+            return new ApiResponse<string>("Product deleted successfully !", true);
         }
 
-        public async Task<List<ProductDto>> GetAllAsync()
+        public async Task<ApiResponse<List<ProductDto>>> GetAllAsync()
         {
             var products = await _unitOfWork.ProductRepository.GetProductsWithCategoriesAsync();
-            return _mapper.Map<List<ProductDto>>(products);
+            var productDtos = _mapper.Map<List<ProductDto>>(products);
+            return new ApiResponse<List<ProductDto>>(productDtos, "Products displayed successfully !");
         }
 
-        public async Task<ProductDto> GetProductByIdAsync(int id)
+        public async Task<ApiResponse<ProductDto>> GetProductByIdAsync(int id)
         {
             var product = await _unitOfWork.ProductRepository.GetProductsByIdWithCategoriesAsync(id);
 
             if (product == null)
-                throw new KeyNotFoundException("Product not found !");
+                return new ApiResponse<ProductDto>("Product not found !", false);
 
-            return _mapper.Map<ProductDto>(product);
+            var productDto = _mapper.Map<ProductDto>(product);
+            return new ApiResponse<ProductDto>(productDto, "Product displayed successfully !");
         }
 
-        public async Task ToggleActiveStatusAsync(int id)
+        public async Task<ApiResponse<string>> ToggleActiveStatusAsync(int id)
         {
             var product = await _unitOfWork.ProductRepository.GetByIdAsync(id);
 
@@ -71,10 +76,10 @@ namespace FinalCaseForPapara.Business.Services.ProductServices
                 await _unitOfWork.CompleteAsync();
             }
 
-            throw new KeyNotFoundException("Product not found !");
+            return new ApiResponse<string>("Product not found !", false);
         }
 
-        public async Task ToggleStockStatusAsync(int id)
+        public async Task<ApiResponse<string>> ToggleStockStatusAsync(int id)
         {
             var product = await _unitOfWork.ProductRepository.GetByIdAsync(id);
 
@@ -85,19 +90,20 @@ namespace FinalCaseForPapara.Business.Services.ProductServices
                 await _unitOfWork.CompleteAsync();
             }
 
-            throw new KeyNotFoundException("Product not found !");
+            return new ApiResponse<string>("Product not found !", false);
         }
 
-        public async Task UpdateProductAsync(UpdateProductDto updateProductDto)
+        public async Task<ApiResponse<string>> UpdateProductAsync(UpdateProductDto updateProductDto)
         {
             var product = await _unitOfWork.ProductRepository.GetByIdAsync(updateProductDto.Id);
 
             if (product == null)
-                throw new KeyNotFoundException("Product not found !");
+                return new ApiResponse<string>("Product not found !", false);
 
             _mapper.Map(updateProductDto, product);
             await _unitOfWork.ProductRepository.UpdateAsync(product);
             await _unitOfWork.CompleteAsync();
+            return new ApiResponse<string>("Product updated successfully !", true);
         }
     }
 }
