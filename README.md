@@ -28,9 +28,9 @@ Avantajları:
 - Kod Düzeni: Veri erişim kodlarının belirli bir katmanda toplanması, kodun düzenli olmasını ve bakımının kolaylaşmasını sağlar.
 
 Dezavantajları:
-Aşırı Soyutlama: Bazı durumlarda, Repository Pattern gereğinden fazla soyutlama yaratabilir, bu da gereksiz kod karmaşıklığına ve performans kayıplarına yol açabilir.
-Esneklik Kaybı: Repository Pattern'in katı bir yapısı, daha karmaşık veya özel veri sorgularını uygulamada zorluklar yaratabilir. LINQ gibi esnek sorgulama yapılarını kullanmak zorlaşabilir.
-Ekstra Kod Yükü: Her bir entity için ayrı repository sınıfları oluşturmak, özellikle küçük projelerde, ek kod yükü getirebilir ve geliştiricilerin zamanını alabilir.
+- Aşırı Soyutlama: Bazı durumlarda, Repository Pattern gereğinden fazla soyutlama yaratabilir, bu da gereksiz kod karmaşıklığına ve performans kayıplarına yol açabilir.
+- Esneklik Kaybı: Repository Pattern'in katı bir yapısı, daha karmaşık veya özel veri sorgularını uygulamada zorluklar yaratabilir. LINQ gibi esnek sorgulama yapılarını kullanmak zorlaşabilir.
+- Ekstra Kod Yükü: Her bir entity için ayrı repository sınıfları oluşturmak, özellikle küçük projelerde, ek kod yükü getirebilir ve geliştiricilerin zamanını alabilir.
 
 <h4>Unit Of Work</h4>
 
