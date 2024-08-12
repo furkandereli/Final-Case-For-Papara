@@ -48,5 +48,12 @@ Dezavantajları:
 <p>Repository Pattern ve UnitOfWork birlikte kullanıldığında, temiz, test edilebilir ve sürdürülebilir bir mimari sağlar. Ancak, her projenin gereksinimlerine göre dikkatli bir şekilde uygulanmalıdır. Özellikle büyük ve karmaşık projelerde bu pattern'ler büyük faydalar sağlarken, küçük projelerde gereksiz karmaşıklık yaratabilir.</p>
 
 <h4> Database Diagram </h4>
-<p>Projemde identity db context kullandım ve oluşturduğum entityler ile beraber aralarında olan ilişkileri tanımladım.</p>
-![Database Diagram](https://github.com/user-attachments/assets/152414f6-987e-478d-a6e9-744ff595507f)
+Projemde identity db context kullandım ve oluşturduğum entityler ile beraber aralarında olan ilişkileri tanımladım.
+
+![Database Diagram](https://github.com/user-attachments/assets/3d2cf0e3-6cac-4db4-ac5a-bd3b908c55d9)
+<br>
+
+Projenin çalışan görüntülerine aşağıdan ulaşabilirsiniz.
+<br>
+
+[Projenin Çalışır Hali.pdf](https://github.com/user-attachments/files/16579357/Projenin.Calisir.Hali.pdf)
