@@ -22,10 +22,10 @@ Projede Yer Verilen Başlıca Teknolojiler:
 <h4>Repository Pattern</h4>
 
 Avantajları:
-Soyutlama ve Bağımsızlık: Veritabanı işlemleri, uygulamanın geri kalanından soyutlanır, bu da veritabanı değişikliklerinin uygulama kodunu minimumda etkilemesini sağlar. Farklı veri kaynaklarına geçiş yapmak daha kolaydır.
-Test Edilebilirlik: Repository Pattern, bağımlılıkların daha kolay yönetilmesini sağlar ve bu da birim testlerin yazılmasını ve uygulanmasını kolaylaştırır.
-Tekrar Kullanılabilirlik: Ortak veri erişim kodları merkezi bir yerde toplanır, bu da kodun tekrar kullanılabilirliğini artırır. Farklı entity'ler için ortak operasyonlar kolayca uygulanabilir.
-Kod Düzeni: Veri erişim kodlarının belirli bir katmanda toplanması, kodun düzenli olmasını ve bakımının kolaylaşmasını sağlar.
+- Soyutlama ve Bağımsızlık: Veritabanı işlemleri, uygulamanın geri kalanından soyutlanır, bu da veritabanı değişikliklerinin uygulama kodunu minimumda etkilemesini sağlar. Farklı veri kaynaklarına geçiş yapmak daha kolaydır.
+- Test Edilebilirlik: Repository Pattern, bağımlılıkların daha kolay yönetilmesini sağlar ve bu da birim testlerin yazılmasını ve uygulanmasını kolaylaştırır.
+- Tekrar Kullanılabilirlik: Ortak veri erişim kodları merkezi bir yerde toplanır, bu da kodun tekrar kullanılabilirliğini artırır. Farklı entity'ler için ortak operasyonlar kolayca uygulanabilir.
+- Kod Düzeni: Veri erişim kodlarının belirli bir katmanda toplanması, kodun düzenli olmasını ve bakımının kolaylaşmasını sağlar.
 
 Dezavantajları:
 Aşırı Soyutlama: Bazı durumlarda, Repository Pattern gereğinden fazla soyutlama yaratabilir, bu da gereksiz kod karmaşıklığına ve performans kayıplarına yol açabilir.
