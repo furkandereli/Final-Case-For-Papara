@@ -53,7 +53,6 @@ Projemde identity db context kullandım ve oluşturduğum entityler ile beraber 
 ![Database Diagram](https://github.com/user-attachments/assets/3d2cf0e3-6cac-4db4-ac5a-bd3b908c55d9)
 <br>
 
-Projenin çalışan görüntülerine aşağıdan ulaşabilirsiniz.
+Projenin çalışan görüntülerine pdften ulaşabilirsiniz.
 <br>
-
 [Projenin Çalışır Hali.pdf](https://github.com/user-attachments/files/16579357/Projenin.Calisir.Hali.pdf)
