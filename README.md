@@ -16,6 +16,7 @@ Projede Yer Verilen Başlıca Teknolojiler:
 - Mssql
 - Entity Framework (Code First)
 - Swagger
+- AutoMapper
 
 <h3> Repository Pattern & UnitOfWork </h3>
 
